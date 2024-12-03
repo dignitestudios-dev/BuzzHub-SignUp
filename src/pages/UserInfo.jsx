@@ -56,6 +56,7 @@ const UserInfo = () => {
     console.log("🚀 ~ handleApiCall ~ formData:", formData);
     setLoading(true);
     try {
+      // data
       const data = new FormData();
       data.append("dispensaryName", formData.dispensaryName);
       data.append("bio", formData.bio);
