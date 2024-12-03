@@ -8,11 +8,13 @@ import Packages from "./pages/Packages";
 import Verification from "./pages/Verification";
 import RequestSuccessScreen from "./components/RequestSuccessScreen";
 import AddCard from "./pages/AddCard";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<SignUp />} />
+      <Route path="/login/:token" element={<Login />} />
       <Route path="/verify-otp" element={<VerifyOtp />} />
       <Route path="/success" element={<SuccessScreen />} />
       <Route path="/req-success" element={<RequestSuccessScreen />} />
