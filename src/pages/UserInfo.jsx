@@ -1,0 +1,237 @@
+import React, { useState } from "react";
+import UserInformation from "../components/UserInformation";
+import UserProfile from "../components/UserProfile";
+import UserVerification from "../components/UserVerification";
+import UserSummary from "./../components/UserSummary";
+import { useForm } from "react-hook-form";
+import axios from "../axios";
+import { ErrorToast, SuccessToast } from "../components/Toaster";
+import { useNavigate } from "react-router-dom";
+
+const UserInfo = () => {
+  const navigate = useNavigate();
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [closingTime, setClosingTime] = useState("");
+  const [startingTime, setStartingTime] = useState("");
+
+  const [cities, setCities] = useState([]);
+  const [city, setCity] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  console.log("🚀 ~ UserInfo ~ selectedState:", selectedState);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    getValues,
+    control,
+    watch,
+  } = useForm();
+
+  const [fileNames, setFileNames] = useState({
+    front: "",
+    back: "",
+    left: "",
+    right: "",
+  });
+
+  const [sections] = useState([
+    "Information",
+    "Profile",
+    "Verification",
+    "Summary",
+  ]);
+
+  const handleNext = () => {
+    setStep(step + 1);
+  };
+
+  const handlePrev = () => {
+    setStep(step - 1);
+  };
+
+  const handleApiCall = async (formData) => {
+    console.log("🚀 ~ handleApiCall ~ formData:", formData);
+    setLoading(true);
+    try {
+      const data = new FormData();
+      data.append("dispensaryName", formData.dispensaryName);
+      data.append("bio", formData.bio);
+      data.append("city", city);
+      data.append("country", formData.country);
+      data.append("deliveryRadius", formData.deliveryRadius);
+      data.append("closingHourTime", closingTime);
+      data.append("openingHourTime", startingTime);
+      // data.append("pickupType", JSON.stringify(formData.pickupType)); // assuming it's an array
+      data.append("state", selectedState);
+      data.append("streetAddress", formData.streetAddress);
+      data.append("zipCode", formData.zipCode);
+
+      // Append file data (if exists)
+      if (formData.image[0]) {
+        data.append("profilePicture", formData.image[0]);
+      }
+      if (fileNames.front) {
+        data.append("licenseFront", fileNames.front);
+      }
+      if (fileNames.back) {
+        data.append("licenseBack", fileNames.back);
+      }
+      if (fileNames.left) {
+        data.append("registrationLicenseFront", fileNames.left);
+      }
+      if (fileNames.right) {
+        data.append("registrationLicenseBack", fileNames.right);
+      }
+
+      const response = await axios.post(
+        "dispensary/dispensary-complete-profile",
+        data
+      );
+      if (response.status === 200) {
+        setLoading(false);
+        SuccessToast("Information Submitted");
+        navigate("/req-success", { state: "pending" });
+        // try {
+        //   const linkResponse = await axios.post(
+        //     "dispensary/create-account-link"
+        //   );
+        //   console.log("Stripe account link response:", linkResponse);
+
+        //   if (linkResponse.status === 200) {
+        //     const accountLink = linkResponse.data.accountLink;
+        //     window.location.href = accountLink;
+        //   }
+        // } catch (error) {
+        //   console.log("🚀 ~ handle stripe link ~ error:", error);
+        // }
+      }
+    } catch (err) {
+      console.log("🚀 ~ handleApiCall ~ err:", err);
+      ErrorToast(err?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex justify-center items-center h-full w-full my-4 ">
+      <div className="flex justify-center items-center w-full">
+        <div className="bg-[#f9FAFA] h-auto lg:w-[30%] md:w-[50%] w-[90%] p-6 shadow-sm rounded-xl">
+          <div className="flex justify-between items-center mt-4 w-full">
+            {sections.map((value, index) => (
+              <div
+                key={index}
+                className="flex relative flex-col items-center justify-center w-full"
+              >
+                <div className="w-auto flex flex-col items-center gap-2">
+                  <div className="flex items-center ">
+                    <div
+                      className={`md:w-12 md:h-12 w-6 h-6 rounded-full flex items-center justify-center font-bold text-white ${
+                        index < step - 1
+                          ? "bg-primary text-white z-50"
+                          : index == step - 1
+                          ? " border border-[#1D7C42] text-white z-50"
+                          : "bg-[#969696] text-white"
+                      }`}
+                    >
+                      <span
+                        className={`font-normal ${
+                          index === step - 1 ? "text-primary" : "text-white"
+                        }`}
+                      >
+                        {index + 1}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="  flex justify-start items-center text-center text-sm">
+                    <p
+                      className={`font-medium ${
+                        index < step - 1
+                          ? " text-primary z-50"
+                          : index == step - 1
+                          ? "text-primary z-50"
+                          : "text-primary"
+                      }`}
+                    >
+                      {value}
+                    </p>
+                  </div>
+                </div>
+                {index < sections.length - 1 && (
+                  <div
+                    className={` absolute md:top-6 top-3 md:-right-6 -right-5 md:w-[46px] w-[42px] h-[2px] ${
+                      index < step - 1
+                        ? "bg-primary text-white"
+                        : "bg-[#969696]"
+                    }`}
+                  ></div>
+                )}
+                {/* Display value below each circle */}
+              </div>
+            ))}
+          </div>
+          {step === 1 && (
+            <UserInformation
+              handleNext={handleNext}
+              register={register}
+              errors={errors}
+              setValue={setValue}
+              getValues={getValues}
+              handleSubmit={handleSubmit}
+              watch={watch}
+              cities={cities}
+              setCities={setCities}
+              city={city}
+              setCity={setCity}
+              selectedState={selectedState}
+              setSelectedState={setSelectedState}
+            />
+          )}
+          {step === 2 && (
+            <UserProfile
+              handleNext={handleNext}
+              handlePrev={handlePrev}
+              register={register}
+              errors={errors}
+              handleSubmit={handleSubmit}
+              control={control}
+              watch={watch}
+              setClosingTime={setClosingTime}
+              setStartingTime={setStartingTime}
+              setValue={setValue}
+            />
+          )}
+          {step === 3 && (
+            <UserVerification
+              handleNext={handleNext}
+              handlePrev={handlePrev}
+              fileNames={fileNames}
+              setFileNames={setFileNames}
+            />
+          )}
+          {step === 4 && (
+            <UserSummary
+              handleApi={handleApiCall}
+              handlePrev={handlePrev}
+              register={register}
+              errors={errors}
+              setValue={setValue}
+              getValues={getValues}
+              handleSubmit={handleSubmit}
+              fileNames={fileNames}
+              watch={watch}
+              loading={loading}
+              selectedState={selectedState}
+              city={city}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserInfo;
