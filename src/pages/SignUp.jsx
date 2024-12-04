@@ -53,6 +53,7 @@ const SignUp = () => {
       }
     } catch (error) {
       console.log("🚀 ~ createAccount ~ error:", error);
+      ErrorToast("Error in FCM");
       if (error?.message?.includes("auth/email-already-in-use")) {
         // Try to sign in the user
         const userCredential = await signInWithEmailAndPassword(
@@ -88,7 +89,7 @@ const SignUp = () => {
           password: formData.password,
           confirmPassword: formData.confirmPassword,
           phoneNumber: formData.phoneNumber,
-          idToken: idToken,
+          // idToken: idToken,
         };
         const response = await axios.post("/auth/dispansory-signup", obj);
         console.log("🚀 ~ createAccount ~ response:", response?.data);
@@ -102,7 +103,9 @@ const SignUp = () => {
           ErrorToast(response?.message || "Unexpected Error");
         }
       } catch (err) {
-        ErrorToast(err?.response?.message);
+        console.log("🚀 ~ sendDataToBackend ~ err:", err);
+        ErrorToast("Error In API Hit", err?.message);
+        ErrorToast(err?.response?.data?.message);
         if (newUser && newUser.user) {
           // If an account was created but an error occurred after, delete the account
           try {
