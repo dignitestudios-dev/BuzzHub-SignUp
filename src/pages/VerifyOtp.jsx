@@ -7,6 +7,8 @@ import axios from "../axios";
 
 const VerifyOtp = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
+
   const [otp, setOtp] = useState(Array(4).fill(""));
   const [isActive, setIsActive] = useState(true);
   const [seconds, setSeconds] = useState(30);

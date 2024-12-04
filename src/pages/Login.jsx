@@ -9,12 +9,16 @@ import { FiLoader } from "react-icons/fi";
 const Login = () => {
   const { token, isSubscribed, isApproved, isSessionComplete, isVerified } =
     useParams();
+  console.log("🚀 ~ Login ~ isVerified:", isVerified);
+  console.log("🚀 ~ Login ~ isSessionComplete:", isSessionComplete);
+  console.log("🚀 ~ Login ~ isApproved:", isApproved);
+  console.log("🚀 ~ Login ~ isSubscribed:", isSubscribed);
   const decodedToken = decodeURIComponent(token);
 
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
-  const [loadingScreen, setLoadingScreen] = useState(false);
+  const [loadingScreen, setLoadingScreen] = useState(true);
 
   // Set up react-hook-form
   const {
@@ -25,35 +29,32 @@ const Login = () => {
 
   const handleTokenLogin = async () => {
     try {
-      if (response.status === 200) {
-        if (response?.data?.data?.isEmailVerified === true) {
-          sessionStorage.setItem("token", response?.data?.data?.token);
-          if (response?.data?.data?.isSubscribed === true) {
-            navigate("/update-plan");
-          } else {
-            navigate("/buy-package");
-          }
+      if (isVerified === true) {
+        sessionStorage.setItem("token", decodedToken);
+        if (isSubscribed === true) {
+          navigate("/req-success", { state: "approve" });
         } else {
-          navigate("/onboard-verify-otp", { state: decodedToken });
+          navigate("/packages");
         }
-        // navigate("/dashboard");
-        setLoading(false);
-        SuccessToast("Logged in successfully");
+      } else {
+        navigate("/verify-otp", { state: decodedToken });
       }
+      // navigate("/dashboard");
+      setLoading(false);
+      SuccessToast("Logged in successfully");
     } catch (err) {
       console.log("🚀 ~ createAccount ~ err:", err);
-      ErrorToast(err?.response?.data?.message);
-      window.close();
+      ErrorToast("User Not Found");
     } finally {
       setLoadingScreen(false);
     }
   };
 
   useEffect(() => {
-    if (token) {
+    if (decodedToken) {
       handleTokenLogin();
     }
-  }, [token]);
+  }, [decodedToken]);
 
   return (
     <div className="md:p-0 p-4 w-full h-screen flex items-center justify-center">
