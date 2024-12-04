@@ -76,9 +76,7 @@ const SignUp = () => {
   };
 
   const sendDataToBackend = async (formData) => {
-    console.log("🚀 ~ sendDataToBackend ~ formData:", formData);
     if (idToken) {
-      console.log("🚀 send Data token hit~ idToken:", idToken);
       setLoading(true);
       try {
         let obj = {
@@ -87,10 +85,9 @@ const SignUp = () => {
           password: formData.password,
           confirmPassword: formData.confirmPassword,
           phoneNumber: formData.phoneNumber,
-          // idToken: idToken,
+          idToken: idToken,
         };
         const response = await axios.post("/auth/dispansory-signup", obj);
-        console.log("🚀 ~ createAccount ~ response:", response?.data);
 
         if (response.status === 201 || response.status === 200) {
           sessionStorage.setItem("email", formData?.email);
