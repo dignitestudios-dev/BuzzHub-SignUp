@@ -7,7 +7,8 @@ import { FiLoader } from "react-icons/fi";
 //
 
 const Login = () => {
-  const { token } = useParams();
+  const { token, isSubscribed, isApproved, isSessionComplete, isVerified } =
+    useParams();
   const decodedToken = decodeURIComponent(token);
 
   const navigate = useNavigate();
@@ -24,20 +25,6 @@ const Login = () => {
 
   const handleTokenLogin = async () => {
     try {
-      setLoadingScreen(true);
-      let obj = {
-        token: decodedToken,
-      };
-
-      const response = await axios.post(
-        "https://api.theperfectboat.com/auth/signIn/token",
-        obj,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
       if (response.status === 200) {
         if (response?.data?.data?.isEmailVerified === true) {
           sessionStorage.setItem("token", response?.data?.data?.token);
