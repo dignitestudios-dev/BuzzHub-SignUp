@@ -104,7 +104,7 @@ const SignUp = () => {
         }
       } catch (err) {
         console.log("🚀 ~ sendDataToBackend ~ err:", err);
-        ErrorToast("Error In API Hit", err?.message);
+        ErrorToast("Error In API Hit", err);
         ErrorToast(err?.response?.data?.message);
         if (newUser && newUser.user) {
           // If an account was created but an error occurred after, delete the account
