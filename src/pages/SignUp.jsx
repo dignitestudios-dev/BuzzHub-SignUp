@@ -52,8 +52,6 @@ const SignUp = () => {
         setLoading(false);
       }
     } catch (error) {
-      console.log("🚀 ~ createAccount ~ error:", error);
-      ErrorToast("Error in FCM");
       if (error?.message?.includes("auth/email-already-in-use")) {
         // Try to sign in the user
         const userCredential = await signInWithEmailAndPassword(
