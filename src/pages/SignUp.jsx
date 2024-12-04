@@ -152,7 +152,7 @@ const SignUp = () => {
             <div className="w-full h-auto flex flex-col justify-start items-start my-4">
               <InputField
                 text={"Full Name"}
-                placeholder={"Full name"}
+                placeholder={"Full Dispensary Name"}
                 register={register("fullName", {
                   required: "Please enter your name.",
                   pattern: {
