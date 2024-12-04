@@ -9,6 +9,7 @@ import Verification from "./pages/Verification";
 import RequestSuccessScreen from "./components/RequestSuccessScreen";
 import AddCard from "./pages/AddCard";
 import Login from "./pages/Login";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/packages" element={<Packages />} />
       <Route path="/add-card" element={<AddCard />} />
       <Route path="/verification" element={<Verification />} />
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 }
