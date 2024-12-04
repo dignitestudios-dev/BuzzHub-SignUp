@@ -99,10 +99,10 @@ const SignUp = () => {
           SuccessToast("SignUp Successfully");
           navigate("/verify-otp");
         } else {
-          ErrorToast(response?.data?.message);
+          ErrorToast(response?.message || "Unexpected Error");
         }
       } catch (err) {
-        ErrorToast(err?.response?.data?.message);
+        ErrorToast(err?.response?.message);
         if (newUser && newUser.user) {
           // If an account was created but an error occurred after, delete the account
           try {
@@ -110,6 +110,7 @@ const SignUp = () => {
             console.log("Account successfully deleted.");
           } catch (deleteError) {
             console.log("Failed to delete the account:", deleteError);
+            ErrorToast(deleteError);
           }
         }
       } finally {
