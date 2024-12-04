@@ -2,7 +2,7 @@ import axios from "axios";
 
 // export const baseUrl = "https://api.com";
 
-export const baseUrl = "http://18.189.159.77";
+export const baseUrl = "https://18.189.159.77";
 
 const instance = axios.create({
   baseURL: baseUrl,
