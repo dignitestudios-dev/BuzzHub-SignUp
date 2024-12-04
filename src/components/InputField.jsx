@@ -10,6 +10,8 @@ const InputField = ({
   register,
   maxLength,
   isDisabled = false,
+  onInput,
+  isPhone = false,
 }) => {
   const [isPassVisible, setIsPassVisible] = useState(false);
 

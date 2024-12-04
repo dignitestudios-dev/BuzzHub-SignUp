@@ -20,6 +20,7 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [idToken, setIdToken] = useState(null);
   const [newUser, setNewUser] = useState("");
+  const [err, setErr] = useState("");
 
   const {
     getValues,
@@ -98,11 +99,13 @@ const SignUp = () => {
           SuccessToast("SignUp Successfully");
           navigate("/verify-otp");
         } else {
-          ErrorToast(response?.message || "Unexpected Error");
+          ErrorToast(response?.message);
         }
       } catch (err) {
-        console.log("🚀 ~ sendDataToBackend ~ err:", err);
-        ErrorToast("Error In API Hit", err);
+        setErr(err);
+        ErrorToast(err);
+        ErrorToast(err?.response);
+        ErrorToast(err?.message);
         ErrorToast(err?.response?.data?.message);
         if (newUser && newUser.user) {
           // If an account was created but an error occurred after, delete the account
@@ -147,10 +150,13 @@ const SignUp = () => {
                 Enter the details below to Sign up
               </p>
             </div>
+            {err && (
+              <p className="text-red-600">The Error you looking for is : err</p>
+            )}
             <div className="w-full h-auto flex flex-col justify-start items-start my-4">
               <InputField
                 text={"Full Name"}
-                placeholder={"Full Dispensary Name"}
+                placeholder={"Full Name"}
                 register={register("fullName", {
                   required: "Please enter your name.",
                   pattern: {

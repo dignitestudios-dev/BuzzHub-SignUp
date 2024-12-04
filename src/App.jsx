@@ -15,7 +15,7 @@ function App() {
     <Routes>
       <Route path="/" element={<SignUp />} />
       <Route
-        path="/login/:isSubscribed/:isApproved/:isSessionComplete/:isVerified"
+        path="/login/:token/:isSubscribed/:isApproved/:isSessionComplete/:isVerified"
         element={<Login />}
       />
       <Route path="/verify-otp" element={<VerifyOtp />} />
