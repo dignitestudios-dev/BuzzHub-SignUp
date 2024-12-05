@@ -10,17 +10,19 @@ import RequestSuccessScreen from "./components/RequestSuccessScreen";
 import AddCard from "./pages/AddCard";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
+import SubscriptionSuccess from "./pages/SubscriptionSuccess";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<SignUp />} />
       <Route
-        path="/login/:token/:isSubscribed/:isApproved/:isSessionComplete/:isVerified"
+        path="/login/:token/:isSubscribed/:isApproved/:isVerified"
         element={<Login />}
       />
       <Route path="/verify-otp" element={<VerifyOtp />} />
-      <Route path="/success" element={<SuccessScreen />} />
+      <Route path="/verify-success" element={<SuccessScreen />} />
+      <Route path="/subscribe-success" element={<SubscriptionSuccess />} />
       <Route path="/req-success" element={<RequestSuccessScreen />} />
       <Route path="/userinfo" element={<UserInfo />} />
       <Route path="/packages" element={<Packages />} />

@@ -7,15 +7,12 @@ import { FiLoader } from "react-icons/fi";
 //
 
 const Login = () => {
-  const { token, isSubscribed, isApproved, isSessionComplete, isVerified } =
-    useParams();
+  const { token, isSubscribed, isApproved, isVerified } = useParams();
 
   const decodedToken = decodeURIComponent(token);
-  console.log("🚀 ~ Login ~ decodedToken:", decodedToken);
 
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);
   const [loadingScreen, setLoadingScreen] = useState(true);
 
   const handleTokenLogin = async () => {
@@ -23,25 +20,23 @@ const Login = () => {
       if (isVerified === "true") {
         console.log("decode token is: ", decodedToken);
         sessionStorage.setItem("token", decodedToken);
-        if (isApproved === "true") {
-          navigate("/req-success", { state: "pending" });
-        } else {
+        if (isApproved === "Approved") {
           if (isSubscribed === "true") {
             navigate("/req-success", { state: "approve" });
             console.log("is subscribe call");
           } else {
-            console.log("is subscribe else call");
             navigate("/packages");
           }
+        } else if (isApproved === "Pending") {
+          navigate("/req-success", { state: "pending" });
+        } else {
+          navigate("/req-success", { state: "reject" });
         }
       } else {
-        console.log("is verified else call");
         navigate("/verify-otp", { state: decodedToken });
       }
-      // navigate("/dashboard");
-      setLoading(false);
     } catch (err) {
-      console.log("🚀 ~ createAccount ~ err:", err);
+      console.log("🚀 ~ handleTokenLogin ~ err:", err);
       ErrorToast("User Not Found");
     } finally {
       setLoadingScreen(false);

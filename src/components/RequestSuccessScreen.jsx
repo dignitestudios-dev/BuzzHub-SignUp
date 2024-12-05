@@ -1,5 +1,7 @@
+import axios from "../axios";
 import React, { useEffect } from "react";
-import { IoCheckmarkCircle } from "react-icons/io5";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { FiLoader } from "react-icons/fi";
 import { LuLoader2 } from "react-icons/lu";
 import { MdCancel } from "react-icons/md";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -9,6 +11,24 @@ const RequestSuccessScreen = () => {
   // const isStatus = "rejct";
   const { state } = useLocation();
   console.log("🚀 ~ RequestSuccessScreen ~ state:", state);
+
+  const [loading, setLoading] = useState(false);
+  const createConnect = async () => {
+    try {
+      setLoading(true);
+      const linkResponse = await axios.post("dispensary/create-account-link");
+      console.log("Stripe account link response:", linkResponse);
+
+      if (linkResponse.status === 200) {
+        setLoading(false);
+        const accountLink = linkResponse.data.accountLink;
+        window.location.href = accountLink;
+      }
+    } catch (error) {
+      console.log("🚀 ~ handle stripe link ~ error:", error);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col justify-center items-center w-screen h-screen text-center gap-4 relative">
@@ -51,20 +71,32 @@ const RequestSuccessScreen = () => {
           </div>
         </div>
       ) : (
-        <div>
-          <div className="flex justify-center items-center">
-            <IoCheckmarkCircle size={76} className="text-[#3CDC69] mx-auto" />
-          </div>
+        <div className="flex flex-col justify-center items-center w-screen h-screen text-center gap-4 relative">
           <div>
-            <p className="text-[24px] font-semibold">Request approved</p>
-          </div>
-          <div className="px-24">
-            <p className="text-[12px] text-secondary">
-              Your request has been approved successfully!
-            </p>
-            {/* <button className="bg-[#c00000] p-2 rounded-lg text-[16px] text-white mt-3 hover:bg-[#c00000cc]">
-          Back to signup
-        </button> */}
+            <div className="flex justify-center items-center">
+              <FaRegCircleCheck size={76} color="#1D7C42" />
+            </div>
+            <div>
+              <p className="text-[26px]">Congratulations</p>
+            </div>
+            <div>
+              <p className="text-[20px]">
+                Your subscription has been activated successfully!
+              </p>
+
+              {/* <RiLoader3Line className="animate-spin mx-auto text-[42px]" /> */}
+              <button
+                onClick={createConnect}
+                className="bg-[#0093c0] p-2 rounded-lg text-[16px] text-white mt-3 hover:bg-[#0093c0cc]"
+              >
+                <div className="flex items-center">
+                  <span className="mr-1">Create Connect Account</span>
+                  {loading && (
+                    <FiLoader className="animate-spin text-lg mx-auto mt-1" />
+                  )}
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       )}

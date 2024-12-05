@@ -63,7 +63,7 @@ const VerifyOtp = () => {
       if (response?.status === 200) {
         sessionStorage.setItem("token", response?.data?.token);
         setLoading(false);
-        navigate("/success");
+        navigate("/verify-success");
       }
     } catch (err) {
       console.log("🚀 ~ createAccount ~ err:", err);

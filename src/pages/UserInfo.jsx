@@ -95,19 +95,6 @@ const UserInfo = () => {
         setLoading(false);
         SuccessToast("Information Submitted");
         navigate("/req-success", { state: "pending" });
-        // try {
-        //   const linkResponse = await axios.post(
-        //     "dispensary/create-account-link"
-        //   );
-        //   console.log("Stripe account link response:", linkResponse);
-
-        //   if (linkResponse.status === 200) {
-        //     const accountLink = linkResponse.data.accountLink;
-        //     window.location.href = accountLink;
-        //   }
-        // } catch (error) {
-        //   console.log("🚀 ~ handle stripe link ~ error:", error);
-        // }
       }
     } catch (err) {
       console.log("🚀 ~ handleApiCall ~ err:", err);
