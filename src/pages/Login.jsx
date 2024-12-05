@@ -2,17 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ErrorToast, SuccessToast } from "../components/Toaster";
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { FiLoader } from "react-icons/fi";
 //
 
 const Login = () => {
   const [searchParams] = new useSearchParams();
+  const navigate = useNavigate();
 
   let queryParams = {};
   console.log("🚀 ~ Login ~ queryParams:", queryParams);
@@ -21,33 +17,22 @@ const Login = () => {
     queryParams[key] = value;
   }
 
-  // const decodedToken = decodeURIComponent(token);
-
-  const navigate = useNavigate();
-
   const [loadingScreen, setLoadingScreen] = useState(true);
 
   const handleTokenLogin = async () => {
     try {
-      const { isVerified, status, isSubscribed, token } = queryParams;
-      if (isVerified === "true") {
-        console.log("decode token is: ", token);
-        sessionStorage.setItem("token", token);
-        if (status === "Approved") {
-          if (isSubscribed === "true") {
-            navigate("/req-success", { state: "approve" });
-            console.log("is subscribe call");
-          } else {
-            navigate("/packages");
-          }
-        } else if (status === "Pending") {
-          navigate("/req-success", { state: "pending" });
+      const { status, isSubscribed, token } = queryParams;
+      sessionStorage.setItem("token", token);
+      if (status === "Approved") {
+        if (isSubscribed === "true") {
+          navigate("/req-success", { state: "approve" });
         } else {
-          // navigate("/req-success", { state: "reject" });
-          navigate("/userinfo");
+          navigate("/packages");
         }
+      } else if (status === "Pending") {
+        navigate("/req-success", { state: "pending" });
       } else {
-        navigate("/verify-otp", { state: token });
+        navigate("/userinfo");
       }
     } catch (err) {
       console.log("🚀 ~ handleTokenLogin ~ err:", err);
