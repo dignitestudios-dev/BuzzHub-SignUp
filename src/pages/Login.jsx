@@ -9,39 +9,37 @@ import { FiLoader } from "react-icons/fi";
 const Login = () => {
   const { token, isSubscribed, isApproved, isSessionComplete, isVerified } =
     useParams();
-  console.log("🚀 ~ Login ~ isVerified:", isVerified);
-  console.log("🚀 ~ Login ~ isSessionComplete:", isSessionComplete);
-  console.log("🚀 ~ Login ~ isApproved:", isApproved);
-  console.log("🚀 ~ Login ~ isSubscribed:", isSubscribed);
+
   const decodedToken = decodeURIComponent(token);
+  console.log("🚀 ~ Login ~ decodedToken:", decodedToken);
 
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [loadingScreen, setLoadingScreen] = useState(true);
 
-  // Set up react-hook-form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
   const handleTokenLogin = async () => {
     try {
-      if (isVerified === true) {
+      if (isVerified === "true") {
+        console.log("decode token is: ", decodedToken);
         sessionStorage.setItem("token", decodedToken);
-        if (isSubscribed === true) {
-          navigate("/req-success", { state: "approve" });
+        if (isApproved === "true") {
+          navigate("/req-success", { state: "pending" });
         } else {
-          navigate("/packages");
+          if (isSubscribed === "true") {
+            navigate("/req-success", { state: "approve" });
+            console.log("is subscribe call");
+          } else {
+            console.log("is subscribe else call");
+            navigate("/packages");
+          }
         }
       } else {
+        console.log("is verified else call");
         navigate("/verify-otp", { state: decodedToken });
       }
       // navigate("/dashboard");
       setLoading(false);
-      SuccessToast("Logged in successfully");
     } catch (err) {
       console.log("🚀 ~ createAccount ~ err:", err);
       ErrorToast("User Not Found");
