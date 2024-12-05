@@ -102,14 +102,14 @@ const UserVerification = ({
                   Up to 20mb JPG, PNG
                 </span>
               </>
-              <input
-                type="file"
-                accept=".jpg,.jpeg,.png"
-                onChange={(e) => handleFileChange(e, "front")}
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              />
             </label>
           )}
+          <input
+            type="file"
+            accept=".jpg,.jpeg,.png"
+            onChange={(e) => handleFileChange(e, "front")}
+            className="absolute inset-0 opacity-0 cursor-pointer"
+          />
         </div>
       </div>
       {errors.front && (
@@ -140,14 +140,14 @@ const UserVerification = ({
                   Up to 20mb JPG, PNG
                 </span>
               </>
-              <input
-                type="file"
-                accept=".jpg,.jpeg,.png"
-                onChange={(e) => handleFileChange(e, "back")}
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              />
             </label>
           )}
+          <input
+            type="file"
+            accept=".jpg,.jpeg,.png"
+            onChange={(e) => handleFileChange(e, "back")}
+            className="absolute inset-0 opacity-0 cursor-pointer"
+          />
         </div>
       </div>
       {errors.back && (
@@ -180,14 +180,14 @@ const UserVerification = ({
                   Up to 20mb JPG, PNG
                 </span>
               </>
-              <input
-                type="file"
-                accept=".jpg,.jpeg,.png"
-                onChange={(e) => handleFileChange(e, "left")}
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              />
             </label>
           )}
+          <input
+            type="file"
+            accept=".jpg,.jpeg,.png"
+            onChange={(e) => handleFileChange(e, "left")}
+            className="absolute inset-0 opacity-0 cursor-pointer"
+          />
         </div>
       </div>
       {errors.left && (
@@ -220,14 +220,14 @@ const UserVerification = ({
                   Up to 20mb JPG, PNG
                 </span>
               </>
-              <input
-                type="file"
-                accept=".jpg,.jpeg,.png"
-                onChange={(e) => handleFileChange(e, "right")}
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              />
             </label>
           )}
+          <input
+            type="file"
+            accept=".jpg,.jpeg,.png"
+            onChange={(e) => handleFileChange(e, "right")}
+            className="absolute inset-0 opacity-0 cursor-pointer"
+          />
         </div>
       </div>
       {errors.right && (

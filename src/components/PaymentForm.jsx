@@ -74,7 +74,7 @@ const PaymentForm = ({ state }) => {
 
         if (response.status === 200) {
           navigate("/req-success");
-          SuccessToast(response?.data?.message);
+          SuccessToast("Subscribed");
           setLoading(false);
         }
       } catch (err) {

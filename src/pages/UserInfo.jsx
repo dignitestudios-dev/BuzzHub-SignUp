@@ -18,7 +18,6 @@ const UserInfo = () => {
   const [cities, setCities] = useState([]);
   const [city, setCity] = useState("");
   const [selectedState, setSelectedState] = useState("");
-  console.log("🚀 ~ UserInfo ~ selectedState:", selectedState);
 
   const {
     register,

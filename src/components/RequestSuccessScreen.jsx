@@ -1,5 +1,5 @@
 import axios from "../axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { FiLoader } from "react-icons/fi";
 import { LuLoader2 } from "react-icons/lu";
@@ -10,14 +10,16 @@ const RequestSuccessScreen = () => {
   const navigate = useNavigate();
   // const isStatus = "rejct";
   const { state } = useLocation();
-  console.log("🚀 ~ RequestSuccessScreen ~ state:", state);
 
   const [loading, setLoading] = useState(false);
+  const [infoLoading, setInfoLoading] = useState(false);
+  const [subscription, setSubscription] = useState("");
+  console.log("🚀 ~ RequestSuccessScreen ~ subscription:", subscription);
+
   const createConnect = async () => {
     try {
       setLoading(true);
       const linkResponse = await axios.post("dispensary/create-account-link");
-      console.log("Stripe account link response:", linkResponse);
 
       if (linkResponse.status === 200) {
         setLoading(false);
@@ -29,6 +31,25 @@ const RequestSuccessScreen = () => {
       setLoading(false);
     }
   };
+
+  const getSubscriptionInfo = async () => {
+    try {
+      setInfoLoading(true);
+      const linkResponse = await axios.get("dispensary/subscription-success");
+
+      if (linkResponse.status === 200) {
+        setInfoLoading(false);
+        setSubscription(linkResponse?.data?.data);
+      }
+    } catch (error) {
+      console.log("🚀 ~ handle stripe link ~ error:", error);
+      setInfoLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getSubscriptionInfo();
+  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center w-screen h-screen text-center gap-4 relative">
@@ -72,32 +93,36 @@ const RequestSuccessScreen = () => {
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center w-screen h-screen text-center gap-4 relative">
-          <div>
-            <div className="flex justify-center items-center">
-              <FaRegCircleCheck size={76} color="#1D7C42" />
-            </div>
+          {infoLoading ? (
+            <FiLoader className="animate-spin text-lg mx-auto mt-1" />
+          ) : (
             <div>
-              <p className="text-[26px]">Congratulations</p>
-            </div>
-            <div>
-              <p className="text-[20px]">
-                Your subscription has been activated successfully!
-              </p>
+              <div className="flex justify-center items-center">
+                <FaRegCircleCheck size={76} color="#1D7C42" />
+              </div>
+              <div>
+                <p className="text-[26px]">Congratulations</p>
+              </div>
+              <div>
+                <p className="text-[20px]">
+                  Your subscription has been activated successfully!
+                </p>
 
-              {/* <RiLoader3Line className="animate-spin mx-auto text-[42px]" /> */}
-              <button
-                onClick={createConnect}
-                className="bg-[#0093c0] p-2 rounded-lg text-[16px] text-white mt-3 hover:bg-[#0093c0cc]"
-              >
-                <div className="flex items-center">
-                  <span className="mr-1">Create Connect Account</span>
-                  {loading && (
-                    <FiLoader className="animate-spin text-lg mx-auto mt-1" />
-                  )}
-                </div>
-              </button>
+                {/* <RiLoader3Line className="animate-spin mx-auto text-[42px]" /> */}
+                <button
+                  onClick={createConnect}
+                  className="bg-[#0093c0] p-2 rounded-lg text-[16px] text-white mt-3 hover:bg-[#0093c0cc]"
+                >
+                  <div className="flex items-center">
+                    <span className="mr-1">Create Connect Account</span>
+                    {loading && (
+                      <FiLoader className="animate-spin text-lg mx-auto mt-1" />
+                    )}
+                  </div>
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>
