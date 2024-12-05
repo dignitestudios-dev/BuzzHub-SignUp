@@ -43,7 +43,8 @@ const Login = () => {
         } else if (status === "Pending") {
           navigate("/req-success", { state: "pending" });
         } else {
-          navigate("/req-success", { state: "reject" });
+          // navigate("/req-success", { state: "reject" });
+          navigate("/userinfo");
         }
       } else {
         navigate("/verify-otp", { state: token });
