@@ -7,7 +7,9 @@ import { FiLoader } from "react-icons/fi";
 //
 
 const Login = () => {
-  const { token, isSubscribed, isApproved, isVerified } = useParams();
+  // const { token, isSubscribed, isApproved, isVerified } = useParams();
+  let query = useQuery();
+  console.log("🚀 ~ Login ~ query:", query);
 
   const decodedToken = decodeURIComponent(token);
 

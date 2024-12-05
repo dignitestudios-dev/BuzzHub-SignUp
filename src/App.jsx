@@ -16,7 +16,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<SignUp />} />
-      <Route path="/login/:token" element={<Login />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/verify-otp" element={<VerifyOtp />} />
       <Route path="/verify-success" element={<SuccessScreen />} />
       <Route path="/subscribe-success" element={<SubscriptionSuccess />} />
