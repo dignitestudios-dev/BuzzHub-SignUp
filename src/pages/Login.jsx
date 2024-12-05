@@ -2,16 +2,26 @@ import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ErrorToast, SuccessToast } from "../components/Toaster";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { FiLoader } from "react-icons/fi";
 //
 
 const Login = () => {
-  // const { token, isSubscribed, isApproved, isVerified } = useParams();
-  let query = useQuery();
-  console.log("🚀 ~ Login ~ query:", query);
+  const [searchParams] = new useSearchParams();
 
-  const decodedToken = decodeURIComponent(token);
+  let queryParams = {};
+  console.log("🚀 ~ Login ~ queryParams:", queryParams);
+
+  for (const [key, value] of searchParams.entries()) {
+    queryParams[key] = value;
+  }
+
+  // const decodedToken = decodeURIComponent(token);
 
   const navigate = useNavigate();
 
@@ -19,23 +29,24 @@ const Login = () => {
 
   const handleTokenLogin = async () => {
     try {
+      const { isVerified, status, isSubscribed, token } = queryParams;
       if (isVerified === "true") {
-        console.log("decode token is: ", decodedToken);
-        sessionStorage.setItem("token", decodedToken);
-        if (isApproved === "Approved") {
+        console.log("decode token is: ", token);
+        sessionStorage.setItem("token", token);
+        if (status === "Approved") {
           if (isSubscribed === "true") {
             navigate("/req-success", { state: "approve" });
             console.log("is subscribe call");
           } else {
             navigate("/packages");
           }
-        } else if (isApproved === "Pending") {
+        } else if (status === "Pending") {
           navigate("/req-success", { state: "pending" });
         } else {
           navigate("/req-success", { state: "reject" });
         }
       } else {
-        navigate("/verify-otp", { state: decodedToken });
+        navigate("/verify-otp", { state: token });
       }
     } catch (err) {
       console.log("🚀 ~ handleTokenLogin ~ err:", err);
@@ -46,10 +57,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (decodedToken) {
+    if (queryParams?.token) {
       handleTokenLogin();
     }
-  }, [decodedToken]);
+  }, [queryParams]);
 
   return (
     <div className="md:p-0 p-4 w-full h-screen flex items-center justify-center">
