@@ -175,23 +175,26 @@ const SignUp = () => {
                 error={errors.email}
               />
             </div>
-            <div className="w-full h-auto flex flex-col justify-start items-start my-4">
+            <div
+              className={`w-full h-auto flex flex-col justify-start items-start my-4`}
+            >
               <InputField
                 type={"text"}
+                text={"Phone"}
+                placeholder={"Phone Number"}
                 register={register("phoneNumber", {
                   required: "Please enter your phone number.",
                   pattern: {
-                    value: /^[0-9]{11}$/,
-                    message: "Phone number must 11 digits",
+                    value: /^[0-9]{10}$/,
+                    message: "Phone number must 10 digits",
                   },
                 })}
-                maxLength="12"
+                maxLength="10"
                 error={errors.phoneNumber}
+                isPhone={true}
                 onInput={(e) => {
                   e.target.value = e.target.value.replace(/\D/g, "");
                 }}
-                text={"Phone"}
-                placeholder={"Phone Number"}
               />
             </div>
             <div className="w-full h-auto flex flex-col justify-start items-start my-4">

@@ -28,16 +28,31 @@ const InputField = ({
         <div
           className={` w-full  h-full flex items-center justify-center rounded-[12px] relative`}
         >
+          {isPhone && (
+            <div className="flex items-center bg-light h-full rounded-l-[12px] pl-4">
+              {/* <span className="text-xl pr-1">
+                <img
+                  src="https://flagcdn.com/w320/us.png"
+                  alt="US flag"
+                  className="w-6 h-4 mr-2"
+                />
+              </span> */}
+              <span className="text-md text-[#6B7373]">+1</span>
+            </div>
+          )}
           <input
             disabled={isDisabled}
             type={isPassVisible ? "text" : type}
             placeholder={placeholder}
-            className="w-full text-sm text-secondary placeholder:font-normal 
-            font-normal px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none bg-light "
+            className={`w-full text-sm text-secondary placeholder:font-normal 
+            font-normal ${
+              isPhone ? "pr-4 pl-2" : "px-4"
+            } lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none bg-light `}
             {...register}
             maxLength={maxLength}
+            onInput={onInput}
           />
-          <button
+          <span
             type="button"
             onClick={() => setIsPassVisible((prev) => !prev)}
             className="absolute top-4 text-lg right-2"
@@ -47,7 +62,7 @@ const InputField = ({
           >
             {type == "password" &&
               (!isPassVisible ? <BsEye /> : <BsEyeSlash />)}
-          </button>
+          </span>
         </div>
       </div>
       {error && <p className="text-[#FF453A] text-sm">{error.message}</p>}
