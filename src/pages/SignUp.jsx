@@ -52,20 +52,27 @@ const SignUp = () => {
         setLoading(false);
       }
     } catch (error) {
+      console.log("🚀 ~ firebase ONE is ~ error:", error?.message);
       if (error?.message?.includes("auth/email-already-in-use")) {
-        // Try to sign in the user
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          formData?.email,
-          "Test@123"
-        );
-        const user = userCredential?.user;
-        //   // Get the ID token
-        const token = await getIdToken(user);
-        if (token) {
-          setIdToken(token);
-        } else {
-          ErrorToast("Token Not Found");
+        // Try to sign in the
+        try {
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            formData?.email,
+            "Test@123"
+          );
+          const user = userCredential?.user;
+          //   // Get the ID token
+          const token = await getIdToken(user);
+          if (token) {
+            setIdToken(token);
+          } else {
+            ErrorToast("Token Not Found");
+            setLoading(false);
+          }
+        } catch (err) {
+          console.log("🚀 ~ ~ firebase Two is ~ err:", err);
+          ErrorToast("Email is already in use");
           setLoading(false);
         }
       } else {
