@@ -45,7 +45,7 @@ const RequestSuccessScreen = () => {
         setSubscription(linkResponse?.data?.data);
       }
     } catch (error) {
-      ErrorToast(error?.response?.data?.message || "Something went wrong");
+      // ErrorToast(error?.response?.data?.message || "Something went wrong");
       console.log("🚀 ~ handle stripe link ~ error:", error);
       setInfoLoading(false);
     }
