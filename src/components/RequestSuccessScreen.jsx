@@ -5,6 +5,7 @@ import { FiLoader } from "react-icons/fi";
 import { LuLoader2 } from "react-icons/lu";
 import { MdCancel } from "react-icons/md";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ErrorToast } from "./Toaster";
 
 const RequestSuccessScreen = () => {
   const navigate = useNavigate();
@@ -16,7 +17,8 @@ const RequestSuccessScreen = () => {
   const [subscription, setSubscription] = useState("");
   console.log("🚀 ~ RequestSuccessScreen ~ subscription:", subscription);
 
-  const createConnect = async () => {
+  const createConnect = async (e) => {
+    e.preventDefault();
     try {
       setLoading(true);
       const linkResponse = await axios.post("dispensary/create-account-link");
@@ -27,6 +29,7 @@ const RequestSuccessScreen = () => {
         window.location.href = accountLink;
       }
     } catch (error) {
+      ErrorToast(error?.response?.data?.message || "Something went wrong");
       console.log("🚀 ~ handle stripe link ~ error:", error);
       setLoading(false);
     }
@@ -42,6 +45,7 @@ const RequestSuccessScreen = () => {
         setSubscription(linkResponse?.data?.data);
       }
     } catch (error) {
+      ErrorToast(error?.response?.data?.message || "Something went wrong");
       console.log("🚀 ~ handle stripe link ~ error:", error);
       setInfoLoading(false);
     }

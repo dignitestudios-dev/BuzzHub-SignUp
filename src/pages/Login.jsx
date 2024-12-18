@@ -21,7 +21,7 @@ const Login = () => {
 
   const handleTokenLogin = async () => {
     try {
-      const { status, isSubscribed, token } = queryParams;
+      const { status, isSubscribed, token, isSessionComplete } = queryParams;
       sessionStorage.setItem("token", token);
       if (status === "Approved") {
         if (isSubscribed === "true") {
