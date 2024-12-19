@@ -12,9 +12,7 @@ const Packages = () => {
   };
   return (
     <div>
-      <p className="text-center font-semibold my-12 lg:text-[22px] lg:text-medium">
-        Select Package
-      </p>
+      <p className="text-center font-[600] my-12 text-[22px]">Select Package</p>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:px-56 lg:px-[60px] px-2">
         <div
           className="overflow-auto shadow-customShadow rounded-xl p-6 md:mb-0 min-h-[210px] 

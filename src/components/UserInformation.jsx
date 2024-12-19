@@ -97,7 +97,7 @@ const UserInformation = ({
           handleChange={handleStateChange}
           label="State"
           name="state"
-          options={Object.keys(stateCityData)} // List of states
+          options={Object.keys(stateCityData)}
           error={errors.state?.message}
           disabled={false}
         />
@@ -117,7 +117,7 @@ const UserInformation = ({
         <InputField
           placeholder={"Enter zip code"}
           type={"text"}
-          error={errors.zipCode}
+          error={errors?.zipCode}
           register={register("zipCode", {
             required: "Delivery Radius is required",
             pattern: {
@@ -125,9 +125,13 @@ const UserInformation = ({
               message: "Zip code must be 5 digits.",
             },
           })}
+          maxLength={5}
+          onInput={(e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+          }}
         />
       </div>
-      <div className="pt-1">
+      <div className="pt-2">
         <CustomButton text={"Next"} type="submit" />
       </div>
     </form>

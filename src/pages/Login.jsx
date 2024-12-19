@@ -11,7 +11,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   let queryParams = {};
-  console.log("🚀 ~ Login ~ queryParams:", queryParams);
 
   for (const [key, value] of searchParams.entries()) {
     queryParams[key] = value;
@@ -22,18 +21,25 @@ const Login = () => {
   const handleTokenLogin = async () => {
     try {
       const { status, isSubscribed, token, isSessionComplete } = queryParams;
+      console.log("🚀 ~ handleTokenLogin ~ status:", status);
+
       sessionStorage.setItem("token", token);
       if (status === "Approved") {
-        if (isSubscribed === "true") {
+        console.log("🚀 ~ approved ~ status:", status);
+        if (isSessionComplete === "false") {
+          navigate("/userinfo");
+        } else if (isSubscribed === "true") {
           navigate("/req-success", { state: "approve" });
         } else {
           navigate("/packages");
         }
       } else if (status === "Pending") {
         navigate("/req-success", { state: "pending" });
-      } else {
-        navigate("/userinfo");
+        console.log("🚀 pending status:", status);
       }
+      // } else {
+      //   navigate("/userinfo");
+      // }
     } catch (err) {
       console.log("🚀 ~ handleTokenLogin ~ err:", err);
       ErrorToast("User Not Found");

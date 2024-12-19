@@ -145,8 +145,8 @@ const VerifyOtp = () => {
           </div>
           <div className="w-full h-auto flex justify-center lg:flex lg:flex-col mb-10 md:justify-start md:mb-20 gap-1">
             <div className="w-full lg:w-[434px] flex justify-center items-center lg:justify-center lg:items-center gap-1">
-              <span className="text-[13px] font-normal text-[#8a8a8a]">
-                Didn't receive OTP code?{" "}
+              <span className="text-[13px] font-medium text-[#8a8a8a]">
+                Didn't receive OTP? Resend in
               </span>
               {isActive ? (
                 <CountDown

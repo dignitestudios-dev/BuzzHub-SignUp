@@ -28,9 +28,9 @@ const SelectField = ({
             // {...register}
             className="w-full text-sm text-secondary placeholder:font-normal font-normal px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none bg-light"
           >
-            <option value="" label={`Select ${label}`} />
+            <option value="" label={`Select ${label}`}  disabled hidden/>
             {options?.map((option, index) => (
-              <option key={index} value={option}>
+              <option key={index} value={option} >
                 {option}
               </option>
             ))}

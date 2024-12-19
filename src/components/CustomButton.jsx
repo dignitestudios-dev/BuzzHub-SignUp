@@ -6,7 +6,7 @@ const CustomButton = ({ text, loading, type, handleClick }) => {
     <button
       onClick={handleClick}
       type={type}
-      className="w-full h-[50px] bg-primary text-white rounded-[12px] flex items-center
+      className="w-full h-[48px] bg-primary text-white rounded-[12px] flex items-center
        justify-center text-[14px] font-medium leading-[21.6px] tracking-[-0.24px]"
     >
       <div className="flex items-center">
