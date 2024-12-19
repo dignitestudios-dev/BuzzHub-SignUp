@@ -149,7 +149,7 @@ const SignUp = () => {
         <div className="bg-[#F9FAFA] h-full lg:w-[30%] md:w-[50%] w-[90%] p-6 shadow-sm rounded-xl">
           <form className="h-auto" onSubmit={handleSubmit(createAccount)}>
             <div className="mb-6">
-              <p className="bg-red text-[22px] font-medium text-primary">
+              <p className="bg-red text-[22px] font-bold text-primary">
                 Sign Up
               </p>
               <p className="bg-red text-[13px] text-secondary">
