@@ -15,15 +15,15 @@ const SuccessScreen = () => {
   return (
     <div className="flex flex-col justify-center items-center w-screen h-screen text-center gap-4 relative">
       <div>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center mb-10">
           <FaRegCircleCheck size={76} color="#1D7C42" />
         </div>
         <div>
-          <p className="text-[40px]">Email & Phone Number Verified</p>
+          <p className="text-[28px] font-bold leading-[1.1]">Email & Phone <br/> Number Verified</p>
         </div>
         <div>
-          <p className="text-[20px]">
-            Your email and Phone Number has been verified!
+          <p className="text-[13px] text-[#5E5F62] mb-2 mt-2">
+            Your email and Phone Number has <br/>been verified!
           </p>
 
           <RiLoader3Line className="animate-spin mx-auto text-[42px]" />

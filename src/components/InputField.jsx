@@ -12,6 +12,7 @@ const InputField = ({
   isDisabled = false,
   onInput,
   isPhone = false,
+  icon,
 }) => {
   const [isPassVisible, setIsPassVisible] = useState(false);
 
@@ -37,14 +38,14 @@ const InputField = ({
                   className="w-6 h-4 mr-2"
                 />
               </span> */}
-              <span className="text-md text-[#6B7373]">+1</span>
+              <span className="text-md text-[#6B7373] ml-4 -mr-4">+1</span>
             </div>
           )}
           <input
             disabled={isDisabled}
             type={isPassVisible ? "text" : type}
             placeholder={placeholder}
-            className={`w-full text-sm text-secondary placeholder:font-normal 
+            className={`w-full text-sm text-secondary ml-5 placeholder:font-normal 
             font-normal ${
               isPhone ? "pr-4 pl-2" : "px-4"
             } lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none bg-light `}
@@ -61,7 +62,7 @@ const InputField = ({
             }}
           >
             {type == "password" &&
-              (!isPassVisible ? <BsEye /> : <BsEyeSlash />)}
+              (!isPassVisible ? <BsEyeSlash /> : <BsEye />  )}
           </span>
         </div>
       </div>

@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import CountDown from "../components/CountDown";
-import CustomButton from "../components/CustomButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ErrorToast, SuccessToast } from "../components/Toaster";
 import axios from "../axios";
+import { FiLoader } from "react-icons/fi";
 
 const VerifyOtp = () => {
   const navigate = useNavigate();
@@ -15,10 +15,8 @@ const VerifyOtp = () => {
 
   const [loading, setLoading] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
 
   const inputs = useRef([]);
-  //   const {login} = useContext(AuthContext)
   const otpEmail = sessionStorage.getItem("email");
 
   const handleChange = (e, index) => {
@@ -29,7 +27,6 @@ const VerifyOtp = () => {
       newOtp[index] = value;
       setOtp(newOtp);
 
-      // Move focus to the next input if it's not the last
       if (index < otp.length - 1) {
         inputs.current[index + 1].focus();
       }
@@ -42,7 +39,6 @@ const VerifyOtp = () => {
       newOtp[index] = "";
       setOtp(newOtp);
 
-      // Move focus to the previous input if it's not the first
       if (index > 0) {
         inputs.current[index - 1].focus();
       }
@@ -53,7 +49,11 @@ const VerifyOtp = () => {
     return otp.join("");
   };
 
-  const handleVerifyOtp = async (otp) => {
+  const isOtpFilled = otp.every((digit) => digit !== "");
+
+  const handleVerifyOtp = async () => {
+    if (!isOtpFilled) return;
+
     setLoading(true);
     try {
       let obj = { email: otpEmail, code: getOtpValue() };
@@ -80,10 +80,9 @@ const VerifyOtp = () => {
       const response = await axios.post("auth/send-otp", obj);
 
       if (response.status === 200) {
-        // navigate("/select-package");
-        SuccessToast("Otp has been send to your email");
+        SuccessToast("Otp has been sent to your email");
         setResendLoading(false);
-        setOtp(Array(4).fill(""));
+        setOtp(Array(4).fill("")); // Reset OTP fields
         handleRestart();
       }
     } catch (err) {
@@ -98,22 +97,40 @@ const VerifyOtp = () => {
     setIsActive(true);
   };
 
+  // Custom Button specifically for the verification page
+  const VerifyButton = ({ text, handleClick, loading, disabled }) => {
+    return (
+      <button
+        onClick={handleClick}
+        disabled={disabled}
+        className={`w-full h-[50px] rounded-[12px] text-white font-medium flex justify-center items-center text-[14px] ${
+          disabled
+            ? "bg-gray-400 opacity-50 cursor-not-allowed"
+            : "bg-primary"
+        }`}
+      >
+        <div className="flex items-center">
+          <span className="mr-2">{text}</span>
+          {loading && <FiLoader className="animate-spin text-lg mx-auto mt-1" />}
+        </div>
+      </button>
+    );
+  };
+
   return (
-    <div className="flex justify-center items-center h-screen w-full ">
+    <div className="flex justify-center items-center h-full w-full">
       <div className="flex justify-center items-center w-full">
-        <div className="bg-[#f9FAFA] h-full lg:w-[30%] md:w-[50%] w-[90%] p-6 shadow-sm rounded-xl">
+        <div className="bg-white h-full lg:w-[30%] md:w-[50%] w-[90%] p-6 rounded-xl">
           <div className="w-full flex justify-center items-center flex-col">
-            <h1 className="text-[32px] md:text-[48px] font-bold ">
-              Verification
-            </h1>
+            <h1 className="text-[32px] md:text-[48px] font-bold">Verification</h1>
             <p className="text-[#8A8A8A] font-normal md:text-[17px] text-[14px]">
-              Enter the OTP code sent to your email
+              Enter the OTP sent to your email
             </p>
           </div>
-          <div className="w-full h-auto grid grid-cols-4 justify-center items-center gap-4 mb-6 mt-12 ">
+          <div className="w-full h-auto grid grid-cols-4 justify-center items-center gap-4 mb-6 mt-12">
             {otp.map((digit, index) => (
               <input
-                inputmode="numeric"
+                inputMode="numeric"
                 key={index}
                 type="password"
                 maxLength="1"
@@ -121,15 +138,15 @@ const VerifyOtp = () => {
                 onChange={(e) => handleChange(e, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 ref={(el) => (inputs.current[index] = el)}
-                className=" h-[58px] md:h-[54px] rounded-xl outline-none text-center bg-light
-                 md:text-2xl text-xl focus-within:border-[#8A8A8A] flex items-center justify-center"
+                className="h-[78px] rounded-2xl outline-none text-center bg-light
+                 md:text-2xl text-xl font-bold focus:bg-[#E8F2EC] focus:text-[#1D7C42] focus-within:border-[#8A8A8A] flex items-center justify-center"
               />
             ))}
           </div>
           <div className="w-full h-auto flex justify-center lg:flex lg:flex-col mb-10 md:justify-start md:mb-20 gap-1">
             <div className="w-full lg:w-[434px] flex justify-center items-center lg:justify-center lg:items-center gap-1">
-              <span className="text-[13px] font-medium text-[#8a8a8a]">
-                Didn't receive OTP code? Resend in
+              <span className="text-[13px] font-normal text-[#8a8a8a]">
+                Didn't receive OTP code?{" "}
               </span>
               {isActive ? (
                 <CountDown
@@ -143,19 +160,19 @@ const VerifyOtp = () => {
                   type="button"
                   disabled={resendLoading}
                   onClick={handleResendOtp}
-                  className="outline-none text-[13px] border-none text-primary font-bold"
+                  className="outline-none text-[13px] border-none font-bold text-primary"
                 >
-                  {resendLoading ? "Resending..." : "Resend now"}
+                  {resendLoading ? "Resending..." : "Resend"}
                 </button>
               )}
             </div>
           </div>
           <div>
-            <CustomButton
-              text={"Verify"}
-              type="button"
+            <VerifyButton
+              text="Verify"
               handleClick={handleVerifyOtp}
               loading={loading}
+              disabled={!isOtpFilled || loading} 
             />
           </div>
         </div>

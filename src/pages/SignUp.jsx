@@ -5,6 +5,12 @@ import SocialLogin from "./SocialLogin";
 import { useNavigate } from "react-router-dom";
 import { ErrorToast, SuccessToast } from "../components/Toaster";
 import { useForm } from "react-hook-form";
+import { FiMail } from "react-icons/fi";
+import { CiLock } from "react-icons/ci";
+import { CiUser } from "react-icons/ci";
+import { PiEnvelopeLight } from "react-icons/pi";
+import { CiPhone } from "react-icons/ci";
+
 import axios from "../axios";
 import {
   getAuth,
@@ -100,7 +106,8 @@ const SignUp = () => {
           sessionStorage.setItem("email", formData?.email);
           setLoading(false);
           SuccessToast("SignUp Successfully");
-          navigate("/verify-otp");
+          // navigate("/verify-otp");
+          navigate("/verification");
         } else {
           ErrorToast(response?.message);
         }
@@ -143,13 +150,13 @@ const SignUp = () => {
           <form className="h-auto" onSubmit={handleSubmit(createAccount)}>
             <div className="mb-6">
               <p className="bg-red text-[22px] font-medium text-primary">
-                SignUp
+                Sign Up
               </p>
               <p className="bg-red text-[13px] text-secondary">
                 Enter the details below to Sign up
               </p>
             </div>
-            <div className="w-full h-auto flex flex-col justify-start items-start my-4">
+            <div className="relative w-full">
               <InputField
                 text={"Full Name"}
                 placeholder={"Full Name"}
@@ -165,9 +172,14 @@ const SignUp = () => {
                 onInput={(e) => {
                   e.target.value = e.target.value.replace(/[^A-Za-z\s]/g, "");
                 }}
+                className="w-full pl-8"
               />
+              <CiUser
+                size={20}
+                className={`text-gray-600 absolute left-2 top-[${errors.fullName ? '25%' : '30%'}]`}
+                />
             </div>
-            <div className="w-full h-auto flex flex-col justify-start items-start my-4">
+            <div className="relative w-full h-auto flex flex-col justify-start items-start my-4">
               <InputField
                 text={"Email"}
                 placeholder={"Email Address"}
@@ -175,15 +187,21 @@ const SignUp = () => {
                 register={register("email", {
                   required: "Please enter your email address.",
                   pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Simple email pattern
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                     message: "Please enter a valid email address.",
                   },
                 })}
                 error={errors.email}
+                className="w-full pl-8"
+              />
+              <PiEnvelopeLight
+                size={20}
+                className={`text-gray-600 absolute left-2 top-[${errors.email ? '25%' : '30%'}]`}
               />
             </div>
+
             <div
-              className={`w-full h-auto flex flex-col justify-start items-start my-4`}
+              className={`relative w-full h-auto flex flex-col justify-start items-start my-4`}
             >
               <InputField
                 type={"text"}
@@ -193,7 +211,7 @@ const SignUp = () => {
                   required: "Please enter your phone number.",
                   pattern: {
                     value: /^[0-9]{10}$/,
-                    message: "Phone number must 10 digits",
+                    message: "Phone number must be 10 digits",
                   },
                 })}
                 maxLength="10"
@@ -202,9 +220,15 @@ const SignUp = () => {
                 onInput={(e) => {
                   e.target.value = e.target.value.replace(/\D/g, "");
                 }}
+                className="w-full pl-8"
+              />
+              <CiPhone
+                size={20}
+                className={`text-gray-600 absolute left-2 top-[${errors.phoneNumber ? '25%' : '30%'}]`}
               />
             </div>
-            <div className="w-full h-auto flex flex-col justify-start items-start my-4">
+
+            <div className="relative w-full h-auto flex flex-col justify-start items-start my-4">
               <InputField
                 register={register("password", {
                   required: "Please enter your password.",
@@ -225,9 +249,15 @@ const SignUp = () => {
                 placeholder={"Enter your password here"}
                 type={"password"}
                 error={errors.password}
+                className="w-full pl-8" // Add padding on the left for the icon
+              />
+              <CiLock
+                size={20}
+                className={`text-gray-600 absolute left-2 top-[${errors.password ? '25%' : '30%'}]`}
               />
             </div>
-            <div className="w-full h-auto flex flex-col justify-start items-start my-4">
+
+            <div className="relative w-full h-auto flex flex-col justify-start items-start my-4">
               <InputField
                 register={register("confPassword", {
                   required: "Please enter confirm password.",
@@ -245,8 +275,14 @@ const SignUp = () => {
                 placeholder={"Enter confirm password here"}
                 type={"password"}
                 error={errors.confPassword}
+                className="w-full pl-8" // Add padding on the left for the icon
+              />
+              <CiLock
+                size={20}
+                className={`text-gray-600 absolute left-2 top-[${errors.confPassword ? '25%' : '30%'}]`}
               />
             </div>
+
             <div className="pt-1">
               <CustomButton
                 text={"Sign Up"}
@@ -263,7 +299,7 @@ const SignUp = () => {
           </div>
           <SocialLogin />
           <div className="flex items-center mt-2">
-            <p className="text-secondary text-[13px]">
+            <p className="text-secondary sm:ml-6 text-[13px] text-center">
               By registering, you accept our{" "}
               <span className="text-primary">Terms & services</span> &{" "}
               <span className="text-primary">Privacy policy</span>
