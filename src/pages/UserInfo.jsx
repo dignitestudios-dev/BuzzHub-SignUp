@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserInfo = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
   const [loading, setLoading] = useState(false);
   const [closingTime, setClosingTime] = useState("");
   const [startingTime, setStartingTime] = useState("");
@@ -18,6 +18,7 @@ const UserInfo = () => {
   const [cities, setCities] = useState([]);
   const [city, setCity] = useState("");
   const [selectedState, setSelectedState] = useState("");
+  const [pickupType, setPickupType] = useState("");
 
   const {
     register,
@@ -52,7 +53,6 @@ const UserInfo = () => {
   };
 
   const handleApiCall = async (formData) => {
-    console.log("🚀 ~ handleApiCall ~ formData:", formData);
     setLoading(true);
     try {
       // data
@@ -104,62 +104,56 @@ const UserInfo = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-full w-full my-4 ">
-      <div className="flex justify-center items-center w-full">
-        <div className="bg-[#f9FAFA] h-auto lg:w-[30%] md:w-[50%] w-[90%] p-6 shadow-sm rounded-xl">
-          <div className="flex justify-between items-center mt-4 w-full">
-            {sections.map((value, index) => (
-              <div
-                key={index}
-                className="flex relative flex-col items-center justify-center w-full"
-              >
-                <div className="w-auto flex flex-col items-center gap-2">
-                  <div className="flex items-center ">
-                    <div
-                      className={`md:w-12 md:h-12 w-6 h-6 rounded-full flex items-center justify-center font-bold text-white ${
-                        index < step - 1
-                          ? "bg-primary text-white z-50"
-                          : index == step - 1
-                          ? " border border-[#1D7C42] text-white z-50"
-                          : "bg-[#969696] text-white"
-                      }`}
-                    >
-                      <span
-                        className={`font-normal ${
-                          index === step - 1 ? "text-primary" : "text-white"
-                        }`}
-                      >
-                        {index + 1}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="  flex justify-start items-center text-center text-sm">
-                    <p
-                      className={`font-medium ${
-                        index < step - 1
-                          ? " text-primary z-50"
-                          : index == step - 1
-                          ? "text-primary z-50"
-                          : "text-primary"
-                      }`}
-                    >
-                      {value}
-                    </p>
-                  </div>
-                </div>
-                {index < sections.length - 1 && (
-                  <div
-                    className={` absolute md:top-6 top-3 md:-right-6 -right-5 md:w-[46px] w-[42px] h-[2px] ${
-                      index < step - 1
-                        ? "bg-primary text-white"
-                        : "bg-[#969696]"
+    <div className="flex flex-col justify-center bg-green-600 items-center h-full w-full  ">
+      <div className="flex pt-5 gap-10">
+        {sections.map((value, index) => (
+          <div
+            key={index}
+            className="flex relative flex-col items-center justify-center w-full"
+          >
+            <div className="w-auto flex flex-col items-center gap-2">
+              <div className="flex items-center ">
+                <div
+                  className={`md:w-12 md:h-12 w-[28.08px] h-[28.08px]  rounded-full flex items-center justify-center font-bold text-white ${
+                    index < step - 1
+                      ? "bg-white text-primary z-50"
+                      : index === step - 1
+                      ? "border-2 border-[white] bg-primary text-white z-50"
+                      : "bg-white text-primary z-50 "
+                  }`}
+                >
+                  <span
+                    className={`font-[400] text-[12px] ${
+                      index === step - 1 ? "text-white" : "text-primary"
                     }`}
-                  ></div>
-                )}
-                {/* Display value below each circle */}
+                  >
+                    {index + 1}
+                  </span>
+                </div>
               </div>
-            ))}
+              <div className="flex justify-start items-center text-center text-sm">
+                <p
+                  className={`font-[400] text-[12px] ${
+                    index <= step - 1 ? "text-white z-50" : "text-gray-300 z-50"
+                  }`}
+                >
+                  {value}
+                </p>
+              </div>
+            </div>
+            {index < sections.length - 1 && (
+              <div
+                className={`absolute md:top-6 top-3 md:-right-8 -right-12 md:w-[41px] w-[59.18px] h-[2px] ${
+                  index < step - 1 ? "bg-white" : "bg-gray-400"
+                }`}
+              ></div>
+            )}
           </div>
+        ))}
+      </div>
+      <div className="flex justify-center items-center w-full">
+        <div className="bg-[#f9FAFA] h-auto  w-[100%] mt-3 p-6 shadow-sm rounded-tr-[30px] rounded-t-[30px]">
+          <div className="flex justify-between items-center mt-4 w-full"></div>
           {step === 1 && (
             <UserInformation
               handleNext={handleNext}
@@ -189,6 +183,8 @@ const UserInfo = () => {
               setClosingTime={setClosingTime}
               setStartingTime={setStartingTime}
               setValue={setValue}
+              pickupType={pickupType}
+              setPickupType={setPickupType}
             />
           )}
           {step === 3 && (
@@ -213,6 +209,7 @@ const UserInfo = () => {
               loading={loading}
               selectedState={selectedState}
               city={city}
+              pickupType={pickupType}
             />
           )}
         </div>

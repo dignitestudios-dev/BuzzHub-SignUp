@@ -16,9 +16,9 @@ const UserProfile = ({
   setClosingTime,
   setStartingTime,
   setValue,
+  setPickupType,
+  pickupType,
 }) => {
-  const [pickupType, setPickupType] = useState("");
-  console.log("🚀 ~ pickupType:", pickupType);
   const [imagePreview, setImagePreview] = useState(null);
 
   const onSubmit = (data) => {
@@ -38,11 +38,11 @@ const UserProfile = ({
 
   return (
     <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-      <p className="text-center mt-6">
+      <p className="text-center text-[24px] font-[600] text-primary leading-[22px] mt-6">
         {imagePreview ? "Uploaded Image" : "Upload Image"}
       </p>
       <div className="w-full flex justify-center items-center mt-2">
-        <div className="relative flex items-center justify-center w-20 h-20 border-2 bg-gray-200 rounded-full">
+        <div className="relative flex items-center justify-center w-[88px] h-[88px] mb-4  mt-4 border-2 border-primary border-dashed bg-[#F6F6F6] rounded-full">
           {imagePreview ? (
             <img
               src={imagePreview}
@@ -51,7 +51,7 @@ const UserProfile = ({
             />
           ) : (
             <svg
-              className="w-6 h-6 text-gray-800"
+              className="w-6 h-6 text-primary"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -89,6 +89,7 @@ const UserProfile = ({
           placeholder="Bio"
           className="w-full text-sm text-secondary placeholder:font-normal h-[80px]
             font-medium px-4 lg:py-3 md:py-2 py-3  rounded-xl outline-none bg-light shadow-sm"
+          maxLength={200}
         />
       </div>
       <div className="w-full h-auto flex justify-between items-center mt-1">
@@ -180,11 +181,31 @@ const UserProfile = ({
           )}
         </div>
       </div>
-      <div className="w-full h-auto flex flex-col justify-start items-start mt-3">
-        <InputField
+      <div className="w-full flex flex-col justify-center rounded-[12px] p-3 items-start mt-3 bg-[#F3F3F3] h-[88px] ">
+        <p className="text-[13px] font-[400] mb-3">Delivery Radius (miles)</p>
+
+        <input
+          type="range"
+          className="range-input"
+          {...register("deliveryRadius", {
+            required: "Delivery Radius is required",
+            pattern: {
+              value: /^[1-9]\d*$/,
+              message: "Please enter a positive number greater than zero",
+            },
+          })}
+        />
+
+        {errors.deliveryRadius && (
+          <p className="text-[#FF453A] text-sm">
+            {errors.deliveryRadius.message}
+          </p>
+        )}
+
+        {/* <InputField
           text={"Delivery Radius (Miles)"}
           placeholder={"Enter Radius in Miles"}
-          type={"text"}
+          type={"range"}
           error={errors.deliveryRadius}
           register={register("deliveryRadius", {
             required: "Delivery Radius is required",
@@ -193,24 +214,29 @@ const UserProfile = ({
               message: "Please enter a positive number greater than zero",
             },
           })}
-        />
+        /> */}
       </div>
       <div className="mt-4 mx-1">
-        <p className="text-[12px] font-medium">Delivery Option</p>
+        <p className="text-[13px] font-[600]">Fulfillment Method</p>
         <div className="flex items-center my-2">
           <input
             {...register("pickupType", {
               required: "Please select a delivery option",
             })}
             type="checkbox"
-            className="w-[16px] h-[16px] accent-[#8a8a8a]"
-            checked={pickupType === "Pickup"}
+            className="w-[16px] h-[16px] accent-primary"
+            checked={pickupType === "Pickup" }
             onChange={() => {
-              setPickupType("Pickup");
-              setValue("pickupType", "Pickup");
+              if (pickupType === "both" || pickupType === "Deliver at home") {
+                setPickupType("Pickup");
+                setValue("pickupType", "Pickup");
+              } else {
+                setPickupType("both");
+                setValue("pickupType", "both");
+              }
             }}
           />
-          <label className="text-[12px] ml-1">Self Pickup</label>
+          <label className="text-[13px] ml-1">Self Pickup</label>
         </div>
         <div className="flex items-center my-2">
           <input
@@ -218,28 +244,50 @@ const UserProfile = ({
               required: "Please select a delivery option",
             })}
             onChange={() => {
-              setPickupType("Deliver at home");
-              setValue("pickupType", "Deliver at home");
+              if (pickupType === "both" || pickupType === "Pickup") {
+                setPickupType("Deliver at home");
+                setValue("pickupType", "Deliver at home");
+              } else {
+                setPickupType("both");
+                setValue("pickupType", "both");
+              }
             }}
             type="checkbox"
-            className="w-[16px] h-[16px] accent-[#8a8a8a]"
-            checked={pickupType === "Deliver at home"}
+            className="w-[16px] h-[16px] accent-primary"
+            checked={pickupType === "Deliver at home" }
           />
-          <label className="text-[12px] ml-1">Deliver at home</label>
+          <label className="text-[13px] ml-1">Deliver at home</label>
+        </div>
+
+        <div className="flex items-center my-2">
+          <input
+            {...register("pickupType", {
+              required: "Please select a delivery option",
+            })}
+            onChange={() => {
+              setPickupType("both");
+              setValue("pickupType", "both");
+            }}
+            type="checkbox"
+            className="w-[16px] h-[16px] accent-primary"
+            checked={pickupType === "both"}
+          />
+          <label className="text-[13px] ml-1">Both</label>
         </div>
         {errors.pickupType && (
           <p className="text-red-500 text-xs">{errors.pickupType.message}</p>
         )}
       </div>
-      <div className="pt-1">
+
+      <div className="mt-8">
         <CustomButton text={"Next"} type="submit" />
       </div>
-      <div className="pt-1">
+      <div className="">
         <button
           onClick={handlePrev}
           type="button"
-          className="w-full h-[52px] text-[#8a8a8a] rounded-[12px] flex items-center justify-center
-   text-[16px] font-bold leading-[21.6px] tracking-[-0.24px] hover:text-[#000] hover:bg-[#f0f0f0] transition duration-300"
+          className="w-full h-[52px] text-primary rounded-[12px] flex items-center justify-center
+   text-[13px] font-[600] leading-[17.55px]  tracking-[-0.24px] hover:text-[#000] hover:bg-[#f0f0f0] transition duration-300"
         >
           Go Back
         </button>

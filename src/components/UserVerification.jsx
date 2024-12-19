@@ -79,7 +79,7 @@ const UserVerification = ({
         <p className="text-[12px] font-medium">License</p>
       </div>
       <div className="flex justify-center">
-        <div className="w-[330px] h-[140px] bg-white border-dashed border-2 border-[#8a8a8a] cursor-pointer rounded-xl flex flex-col gap-1 justify-center items-center relative">
+        <div className="w-[330px] h-[140px] bg-white border-dashed border-2 border-primary cursor-pointer rounded-xl flex flex-col gap-1 justify-center items-center relative">
           {fileNames.front ? (
             <img
               src={fileNames.front ? URL.createObjectURL(fileNames.front) : ""}
@@ -87,18 +87,18 @@ const UserVerification = ({
               onLoad={() => URL.revokeObjectURL(fileNames.front)}
             />
           ) : (
-            <label className="text-sm font-medium text-center">
+            <label className="text-sm text-primary font-medium text-center">
               Upload Image
               <br />
               <div className="mt-2 text-center">
-                <p className="text-sm text-gray-700 w-52 overflow-hidden text-ellipsis">
+                {/* <p className="text-sm text-gray-700 w-52 overflow-hidden text-ellipsis">
                   Selected File:{" "}
-                </p>
+                </p> */}
               </div>
               <>
-                <span className="text-xs text-gray-500">Front</span>
+                <span className="text-xs font-[400] text-gray-500">Front</span>
                 <br />
-                <span className="text-xs text-gray-500">
+                <span className="text-xs font-[400]  text-gray-500">
                   Up to 20mb JPG, PNG
                 </span>
               </>
@@ -117,7 +117,7 @@ const UserVerification = ({
       )}
 
       <div className="flex justify-center pt-2">
-        <div className="w-[330px] h-[140px] bg-white border-dashed border-2 border-[#8a8a8a] cursor-pointer rounded-xl flex flex-col gap-1 justify-center items-center relative">
+        <div className="w-[330px] h-[140px] bg-white border-dashed border-2 border-primary cursor-pointer rounded-xl flex flex-col gap-1 justify-center items-center relative">
           {fileNames.back ? (
             <img
               src={fileNames.back ? URL.createObjectURL(fileNames.back) : ""}
@@ -125,18 +125,18 @@ const UserVerification = ({
               onLoad={() => URL.revokeObjectURL(fileNames.back)}
             />
           ) : (
-            <label className="text-sm font-medium text-center">
+            <label className="text-sm text-primary font-medium text-center">
               Upload Image
               <br />
               <div className="mt-2 text-center">
-                <p className="text-sm text-gray-700 w-52 overflow-hidden text-ellipsis">
+                {/* <p className="text-sm text-gray-700 w-52 overflow-hidden text-ellipsis">
                   Selected File:{" "}
-                </p>
+                </p> */}
               </div>
               <>
-                <span className="text-xs text-gray-500">Back</span>
+                <span className="text-xs font-[400] text-gray-500">Back</span>
                 <br />
-                <span className="text-xs text-gray-500">
+                <span className="text-xs font-[400] text-gray-500">
                   Up to 20mb JPG, PNG
                 </span>
               </>
@@ -154,10 +154,10 @@ const UserVerification = ({
         <p className="text-xs text-red-500 text-center">{errors.back}</p>
       )}
       <div className="py-2">
-        <p className="text-[12px] font-medium">Registration</p>
+        <p className="text-[12px] font-[500] mt-3 mb-3">Registration</p>
       </div>
       <div className="flex justify-center">
-        <div className="w-[330px] h-[140px] bg-white border-dashed border-2 border-[#8a8a8a] cursor-pointer rounded-xl flex flex-col gap-1 justify-center items-center relative">
+        <div className="w-[330px] h-[140px] bg-white border-dashed border-2 border-primary cursor-pointer rounded-xl flex flex-col gap-1 justify-center items-center relative">
           {fileNames.left ? (
             <img
               src={fileNames.left ? URL.createObjectURL(fileNames.left) : ""}
@@ -165,18 +165,18 @@ const UserVerification = ({
               onLoad={() => URL.revokeObjectURL(fileNames.left)}
             />
           ) : (
-            <label className="text-sm font-medium text-center">
+            <label className="text-sm text-primary font-medium text-center">
               Upload Image
               <br />
               <div className="mt-2 text-center">
-                <p className="text-sm text-gray-700 w-52 overflow-hidden text-ellipsis">
+                {/* <p className="text-sm text-gray-700 w-52 overflow-hidden text-ellipsis">
                   Selected File:{" "}
-                </p>
+                </p> */}
               </div>
               <>
-                <span className="text-xs text-gray-500">Front</span>
+                <span className="text-xs font-[400] text-gray-500">Front</span>
                 <br />
-                <span className="text-xs text-gray-500">
+                <span className="text-xs font-[400] text-gray-500">
                   Up to 20mb JPG, PNG
                 </span>
               </>
@@ -195,7 +195,7 @@ const UserVerification = ({
       )}
       <div className="flex justify-center py-2">
         <div
-          className="w-[330px] h-[140px] bg-white border-dashed border-2 border-[#8a8a8a]
+          className="w-[330px] h-[140px] bg-white border-dashed border-2 border-primary
          cursor-pointer rounded-xl flex flex-col gap-1 justify-center items-center relative"
         >
           {fileNames.right ? (
@@ -205,18 +205,18 @@ const UserVerification = ({
               onLoad={() => URL.revokeObjectURL(fileNames.right)}
             />
           ) : (
-            <label className="text-sm font-medium text-center">
+            <label className="text-sm text-primary font-medium text-center">
               Upload Image
               <br />
               <div className="mt-2 text-center">
-                <p className="text-sm text-gray-700 w-52 overflow-hidden text-ellipsis">
+                {/* <p className="text-sm text-gray-700 w-52 overflow-hidden text-ellipsis">
                   Selected File:{" "}
-                </p>
+                </p> */}
               </div>
               <>
-                <span className="text-xs text-gray-500">Back</span>
+                <span className="text-xs font-[400] text-gray-500">Back</span>
                 <br />
-                <span className="text-xs text-gray-500">
+                <span className="text-xs font-[400] text-gray-500">
                   Up to 20mb JPG, PNG
                 </span>
               </>
@@ -233,7 +233,7 @@ const UserVerification = ({
       {errors.right && (
         <p className="text-xs text-red-500 text-center">{errors.right}</p>
       )}
-      <div className="pt-1">
+      <div className="pt-6">
         <CustomButton
           text={"Next"}
           type="button"
@@ -244,8 +244,8 @@ const UserVerification = ({
         <button
           onClick={handlePrev}
           type="button"
-          className="w-full h-[52px] text-[#8a8a8a] rounded-[12px] flex items-center justify-center
-   text-[16px] font-bold leading-[21.6px] tracking-[-0.24px] hover:text-[#000] hover:bg-[#f0f0f0] transition duration-300"
+          className="w-full h-[52px] text-primary rounded-[12px] flex items-center justify-center
+   text-[13px] font-bold leading-[21.6px] tracking-[-0.24px] hover:text-[#000] hover:bg-[#f0f0f0] transition duration-300"
         >
           Go Back
         </button>
