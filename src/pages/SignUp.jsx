@@ -176,7 +176,7 @@ const SignUp = () => {
               />
               <CiUser
                 size={20}
-                className={`text-gray-600 absolute left-2 top-[${errors.fullName ? '25%' : '30%'}]`}
+                className={`text-gray-600 absolute left-2 ${errors.fullName ? 'top-[25%]' : 'top-[35%]'}`}
                 />
             </div>
             <div className="relative w-full h-auto flex flex-col justify-start items-start my-4">
@@ -196,7 +196,7 @@ const SignUp = () => {
               />
               <PiEnvelopeLight
                 size={20}
-                className={`text-gray-600 absolute left-2 top-[${errors.email ? '25%' : '30%'}]`}
+                className={`text-gray-600 absolute left-2 ${errors.email ? 'top-[25%]' : 'top-[35%]'}`}
               />
             </div>
 
@@ -224,7 +224,7 @@ const SignUp = () => {
               />
               <CiPhone
                 size={20}
-                className={`text-gray-600 absolute left-2 top-[${errors.phoneNumber ? '25%' : '30%'}]`}
+                className={`text-gray-600 absolute left-2 ${errors.phoneNumber ? 'top-[25%]' : 'top-[35%]'}`}
               />
             </div>
 
@@ -253,7 +253,7 @@ const SignUp = () => {
               />
               <CiLock
                 size={20}
-                className={`text-gray-600 absolute left-2 top-[${errors.password ? '25%' : '30%'}]`}
+             className={`text-gray-600 absolute left-2 ${errors.password ? 'top-[25%]' : 'top-[35%]'}`}
               />
             </div>
 
@@ -279,7 +279,7 @@ const SignUp = () => {
               />
               <CiLock
                 size={20}
-                className={`text-gray-600 absolute left-2 top-[${errors.confPassword ? '25%' : '30%'}]`}
+                className={`text-gray-600 absolute left-2 ${errors.confPassword ? 'top-[25%]' : 'top-[35%]'}`}
               />
             </div>
 
