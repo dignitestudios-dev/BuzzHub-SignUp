@@ -15,7 +15,6 @@ const RequestSuccessScreen = () => {
   const [loading, setLoading] = useState(false);
   const [infoLoading, setInfoLoading] = useState(false);
   const [subscription, setSubscription] = useState("");
-  console.log("🚀 ~ RequestSuccessScreen ~ subscription:", subscription);
 
   const createConnect = async (e) => {
     e.preventDefault();
