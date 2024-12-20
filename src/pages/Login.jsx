@@ -29,7 +29,7 @@ const Login = () => {
         // Navigate to /userinfo when isSessionComplete is false
         navigate("/userinfo");
       } else if (status === "Approved") {
-        navigate("/req-success");
+        navigate("/packages");
       } else if (status === "Pending") {
         navigate("/req-success", { state: "pending" });
         console.log("🚀 pending status:", status);
