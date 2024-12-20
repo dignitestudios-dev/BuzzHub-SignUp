@@ -29,9 +29,9 @@ const Login = () => {
         if (status === "Approved") {
           navigate("/req-success");
         } else if (isSubscribed === "true") {
-          navigate("/req-success", { state: "approved" });
+          navigate("/req-success", { state: "approve" });
         } else {
-          // navigate("/packages");
+          navigate("/packages");
         }
       } else if (status === "Pending") {
         navigate("/req-success", { state: "pending" });
