@@ -24,8 +24,8 @@ const Login = () => {
       console.log("🚀 ~ handleTokenLogin ~ status:", status);
 
       sessionStorage.setItem("token", token);
+
       if (isSessionComplete === "false") {
-        navigate("/userinfo");
         if (status === "Approved") {
           navigate("/req-success");
         } else if (isSubscribed === "true") {
@@ -36,10 +36,9 @@ const Login = () => {
       } else if (status === "Pending") {
         navigate("/req-success", { state: "pending" });
         console.log("🚀 pending status:", status);
+      } else {
+        navigate("/userinfo");
       }
-      // } else {
-      //   navigate("/userinfo");
-      // }
     } catch (err) {
       console.log("🚀 ~ handleTokenLogin ~ err:", err);
       ErrorToast("User Not Found");
