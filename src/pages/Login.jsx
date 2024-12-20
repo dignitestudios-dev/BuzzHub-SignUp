@@ -24,9 +24,9 @@ const Login = () => {
       console.log("🚀 ~ handleTokenLogin ~ status:", status);
 
       sessionStorage.setItem("token", token);
-      if (status === "Approved") {
+      if (isSessionComplete === "false") {
         console.log("🚀 ~ approved ~ status:", status);
-        if (isSessionComplete === "false") {
+        if (status === "Approved") {
           navigate("/userinfo");
         } else if (isSubscribed === "true") {
           navigate("/req-success", { state: "approve" });
