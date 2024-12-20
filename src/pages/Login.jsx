@@ -22,9 +22,9 @@ const Login = () => {
     try {
       const { status, isSubscribed, token, isSessionComplete } = queryParams;
       console.log("🚀 ~ handleTokenLogin ~ status:", status);
-  
+
       sessionStorage.setItem("token", token);
-  
+
       if (isSessionComplete === "false") {
         // Navigate to /userinfo when isSessionComplete is false
         navigate("/userinfo");
@@ -33,8 +33,8 @@ const Login = () => {
       } else if (status === "Pending") {
         navigate("/req-success", { state: "pending" });
         console.log("🚀 pending status:", status);
-      } else if (isSubscribed === "true") {
-        navigate("/req-success", { state: "approve" });
+      } else if (isSubscribed === "false") {
+        navigate("/packages", { state: "approve" });
       } else {
         navigate("/packages");
       }
@@ -45,7 +45,6 @@ const Login = () => {
       setLoadingScreen(false);
     }
   };
-  
 
   useEffect(() => {
     if (queryParams?.token) {
