@@ -22,22 +22,21 @@ const Login = () => {
     try {
       const { status, isSubscribed, token, isSessionComplete } = queryParams;
       console.log("🚀 ~ handleTokenLogin ~ status:", status);
-
+  
       sessionStorage.setItem("token", token);
-
+  
       if (isSessionComplete === "false") {
-        if (status === "Approved") {
-          navigate("/req-success");
-        } else if (isSubscribed === "true") {
-          navigate("/req-success", { state: "approve" });
-        } else {
-          navigate("/packages");
-        }
+        // Navigate to /userinfo when isSessionComplete is false
+        navigate("/userinfo");
+      } else if (status === "Approved") {
+        navigate("/req-success");
       } else if (status === "Pending") {
         navigate("/req-success", { state: "pending" });
         console.log("🚀 pending status:", status);
+      } else if (isSubscribed === "true") {
+        navigate("/req-success", { state: "approve" });
       } else {
-        navigate("/userinfo");
+        navigate("/packages");
       }
     } catch (err) {
       console.log("🚀 ~ handleTokenLogin ~ err:", err);
@@ -46,6 +45,7 @@ const Login = () => {
       setLoadingScreen(false);
     }
   };
+  
 
   useEffect(() => {
     if (queryParams?.token) {
