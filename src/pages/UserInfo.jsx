@@ -104,7 +104,7 @@ const UserInfo = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center bg-green-600 items-center h-full w-full  ">
+    <div className="flex flex-col justify-center bg-[#1d7c42] items-center h-full w-full  ">
       <div className="flex pt-5 gap-10">
         {sections.map((value, index) => (
           <div

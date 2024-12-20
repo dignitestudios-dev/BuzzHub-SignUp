@@ -25,6 +25,7 @@ const UserProfile = ({
     console.log(data);
     handleNext();
   };
+  const deliveryRadiusValue = watch("deliveryRadius");
 
   const watchedPickupType = watch("pickupType", []);
   const handleImageChange = (event) => {
@@ -182,7 +183,7 @@ const UserProfile = ({
         </div>
       </div>
       <div className="w-full flex flex-col justify-center rounded-[12px] p-3 items-start mt-3 bg-[#F3F3F3] h-[88px] ">
-        <p className="text-[13px] font-[400] mb-3">Delivery Radius (miles)</p>
+        <p className="text-[13px] font-[400] mb-3">Delivery Radius <span className="text-[13px]">({deliveryRadiusValue})</span></p>
 
         <input
           type="range"
