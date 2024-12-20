@@ -31,7 +31,7 @@ const Login = () => {
         } else if (isSubscribed === "true") {
           navigate("/req-success", { state: "approve" });
         } else {
-          navigate("/packages");
+          // navigate("/packages");
         }
       } else if (status === "Pending") {
         navigate("/req-success", { state: "pending" });
