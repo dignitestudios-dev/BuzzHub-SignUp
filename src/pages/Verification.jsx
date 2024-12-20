@@ -10,7 +10,7 @@ const Verification = () => {
     <div className="flex justify-center items-center h-full w-full ">
       <div className="flex justify-center items-center w-full py-2">
         <div className=" h-full lg:w-[30%] md:w-[50%] w-[94%] py-6 px-4 rounded-xl">
-          <p className="text-center text-[28px] font-bold">Verification</p>
+          <p className="text-center text-[32px] font-bold">Verification</p>
           <p className="text-center text-[13px] text-secondary">
             Verify your email and phone number
           </p>

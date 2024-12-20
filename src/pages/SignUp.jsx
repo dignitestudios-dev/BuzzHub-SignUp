@@ -146,7 +146,7 @@ const SignUp = () => {
   return (
     <div className="flex justify-center items-center h-full w-full pt-6">
       <div className="flex justify-center items-center w-full py-2">
-        <div className="bg-[#F9FAFA] h-full lg:w-[30%] md:w-[50%] w-[90%] p-6 shadow-sm rounded-xl">
+        <div className=" h-full lg:w-[30%] md:w-[50%] w-[90%] p-6 rounded-xl">
           <form className="h-auto" onSubmit={handleSubmit(createAccount)}>
             <div className="mb-6">
               <p className="bg-red text-[22px] font-bold text-primary">
