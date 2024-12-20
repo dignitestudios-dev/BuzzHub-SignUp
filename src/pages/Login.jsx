@@ -29,7 +29,7 @@ const Login = () => {
         if (status === "Approved") {
           navigate("/req-success");
         } else if (isSubscribed === "true") {
-          navigate("/req-success", { state: "approve" });
+          navigate("/req-success", { state: "approved" });
         } else {
           // navigate("/packages");
         }
