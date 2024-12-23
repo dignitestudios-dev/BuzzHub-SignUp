@@ -64,8 +64,8 @@ const UserVerification = ({
       setErrors((prevErrors) => ({
         front: !fileNames.front ? "Front image is required" : "",
         back: !fileNames.back ? "Back image is required" : "",
-        left: !fileNames.left ? "Left image is required" : "",
-        right: !fileNames.right ? "Right image is required" : "",
+        left: !fileNames.left ? "Front image is required" : "",
+        right: !fileNames.right ? "Back image is required" : "",
       }));
       return; // Prevent going to the next step if any image is missing
     }
@@ -191,7 +191,7 @@ const UserVerification = ({
         </div>
       </div>
       {errors.left && (
-        <p className="text-xs text-red-500 text-center">{errors.back}</p>
+        <p className="text-xs text-red-500 text-center">{errors.front}</p>
       )}
       <div className="flex justify-center py-2">
         <div
@@ -231,7 +231,7 @@ const UserVerification = ({
         </div>
       </div>
       {errors.right && (
-        <p className="text-xs text-red-500 text-center">{errors.right}</p>
+        <p className="text-xs text-red-500 text-center">{errors.back}</p>
       )}
       <div className="pt-6">
         <CustomButton

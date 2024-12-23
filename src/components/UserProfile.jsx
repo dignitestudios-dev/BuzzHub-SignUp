@@ -15,6 +15,7 @@ const UserProfile = ({
   handleSubmit,
   setClosingTime,
   setStartingTime,
+  startingTime,
   setValue,
   setPickupType,
   pickupType,
@@ -113,7 +114,7 @@ const UserProfile = ({
                     : ""
                 }
                 {...register("openingHour", {
-                  required: "Please upload an image",
+                  required: "Opening time is required",
                   onChange: (e) => {
                     const formattedTimeWithDate = moment()
                       .set({
@@ -154,7 +155,16 @@ const UserProfile = ({
                     : ""
                 }
                 {...register("closingHour", {
-                  required: "Please upload an image",
+                  required: "Closing Hour is required",
+                  validate: (value) => {
+                    if (!startingTime) return true;
+                    const closingTimeMoment = moment(value, "HH:mm");
+                    const openingTimeMoment = moment(startingTime);
+                    if (closingTimeMoment.isBefore(openingTimeMoment)) {
+                      return "Closing hour must be after the opening hour";
+                    }
+                    return true;
+                  },
                   onChange: (e) => {
                     const formattedTime = moment(
                       e.target.value,
@@ -183,13 +193,17 @@ const UserProfile = ({
         </div>
       </div>
       <div className="w-full flex flex-col justify-center rounded-[12px] p-3 items-start mt-3 bg-[#F3F3F3] h-[88px] ">
-        <p className="text-[13px] font-[400] mb-3">Delivery Radius <span className="text-[13px]">({deliveryRadiusValue})</span></p>
+        <p className="text-[13px] font-[400] mb-3">
+          Delivery Radius{" "}
+          <span className="text-[13px]">({deliveryRadiusValue})</span>
+        </p>
 
         <input
           type="range"
           className="range-input"
           {...register("deliveryRadius", {
-            required: "Delivery Radius is required",
+            required:
+              "Delivery radius cannot be zero. Please adjust the slider to select a valid radius",
             pattern: {
               value: /^[1-9]\d*$/,
               message: "Please enter a positive number greater than zero",
@@ -226,7 +240,7 @@ const UserProfile = ({
             })}
             type="checkbox"
             className="w-[16px] h-[16px] accent-primary"
-            checked={pickupType === "Pickup" }
+            checked={pickupType === "Pickup"}
             onChange={() => {
               if (pickupType === "both" || pickupType === "Deliver at home") {
                 setPickupType("Pickup");
@@ -255,7 +269,7 @@ const UserProfile = ({
             }}
             type="checkbox"
             className="w-[16px] h-[16px] accent-primary"
-            checked={pickupType === "Deliver at home" }
+            checked={pickupType === "Deliver at home"}
           />
           <label className="text-[13px] ml-1">Deliver at home</label>
         </div>

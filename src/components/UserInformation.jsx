@@ -119,7 +119,7 @@ const UserInformation = ({
           type={"text"}
           error={errors?.zipCode}
           register={register("zipCode", {
-            required: "Delivery Radius is required",
+            required: "Please enter your zip code.",
             pattern: {
               value: /^[0-9]{5}$/,
               message: "Zip code must be 5 digits.",

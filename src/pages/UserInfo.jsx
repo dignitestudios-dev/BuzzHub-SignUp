@@ -181,6 +181,7 @@ const UserInfo = () => {
               control={control}
               watch={watch}
               setClosingTime={setClosingTime}
+              startingTime={startingTime}
               setStartingTime={setStartingTime}
               setValue={setValue}
               pickupType={pickupType}
