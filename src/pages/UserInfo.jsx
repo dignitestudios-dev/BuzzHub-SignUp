@@ -143,7 +143,7 @@ const UserInfo = () => {
             </div>
             {index < sections.length - 1 && (
               <div
-                className={`absolute md:top-6 top-3 md:-right-8 -right-12 md:w-[41px] w-[59.18px] h-[2px] ${
+                className={`absolute md:top-6 top-3 md:-right-8 -right-16 md:w-[41px] w-[90px] h-[2px] ${
                   index < step - 1 ? "bg-white" : "bg-gray-400"
                 }`}
               ></div>

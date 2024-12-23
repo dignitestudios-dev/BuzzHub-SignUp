@@ -88,7 +88,7 @@ const UserProfile = ({
           {...register("bio")}
           type="text"
           placeholder="Bio"
-          className="w-full text-sm text-secondary placeholder:font-normal h-[80px]
+          className="w-full text-sm text-black placeholder:text-black placeholder:font-normal h-[80px]
             font-medium px-4 lg:py-3 md:py-2 py-3  rounded-xl outline-none bg-light shadow-sm"
           maxLength={200}
         />

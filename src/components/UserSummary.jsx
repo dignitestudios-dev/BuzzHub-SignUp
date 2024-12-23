@@ -48,7 +48,7 @@ const UserSummary = ({
           disabled
           type="text"
           placeholder="Bio"
-          className="w-full text-sm text-secondary placeholder:font-normal 
+          className="w-full text-sm text-black placeholder:font-normal 
             font-normal px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none bg-light"
         />
       </div>
@@ -60,7 +60,7 @@ const UserSummary = ({
             type="text"
             placeholder="Opening Hour"
             className="w-[95%] h-[56px] font-normal px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl
-             outline-none bg-light shadow-sm text-sm text-secondary placeholder:font-normal"
+             outline-none bg-light shadow-sm text-sm text-black placeholder:font-normal"
           />
         </div>
         <div>
@@ -70,7 +70,7 @@ const UserSummary = ({
             type="text"
             placeholder="Closing Hour"
             className="w-[95%] h-[56px] font-normal px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl
-             outline-none bg-light shadow-sm text-sm text-secondary placeholder:font-normal"
+             outline-none bg-light shadow-sm text-sm text-black placeholder:font-normal"
           />
         </div>
       </div>

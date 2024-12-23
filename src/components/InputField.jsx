@@ -45,7 +45,7 @@ const InputField = ({
             disabled={isDisabled}
             type={isPassVisible ? "text" : type}
             placeholder={placeholder}
-            className={`w-full text-sm text-secondary ml-5 placeholder:font-normal 
+            className={`w-full text-sm text-black placeholder:text-black ml-5 placeholder:font-normal 
             font-normal ${
               isPhone ? "pr-4 pl-2" : "px-4"
             } lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none bg-light `}
