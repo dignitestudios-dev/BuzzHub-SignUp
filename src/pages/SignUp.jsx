@@ -104,6 +104,7 @@ const SignUp = () => {
 
         if (response.status === 201 || response.status === 200) {
           sessionStorage.setItem("email", formData?.email);
+          sessionStorage.setItem("phoneNumber", formData?.phoneNumber);
           setLoading(false);
           SuccessToast("SignUp Successfully");
           // navigate("/verify-otp");

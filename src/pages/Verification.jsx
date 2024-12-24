@@ -1,11 +1,26 @@
-import React from "react"; 
+import React, { useEffect, useState } from "react";
 import { FaEnvelope } from "react-icons/fa";
 import { IoIosArrowDroprightCircle, IoMdCheckmarkCircle } from "react-icons/io";
 import { MdOutlinePhonelinkRing } from "react-icons/md";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
 const Verification = () => {
   const isTrue = false;
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  useEffect(() => {
+    const storedEmail = sessionStorage.getItem("email");
+    const storedPhoneNumber = sessionStorage.getItem("phoneNumber");
+
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+    if (storedPhoneNumber) {
+      setPhoneNumber(storedPhoneNumber);
+    }
+  }, []);
+
   return (
     <div className="flex justify-center items-center h-full w-full ">
       <div className="flex justify-center items-center w-full py-2">
@@ -22,9 +37,7 @@ const Verification = () => {
                   <p className="text-[15px] text-[#575757] font-bold">
                     Email address
                   </p>
-                  <p className="text-[12px] text-secondary">
-                    design@dignitestudios.pk
-                  </p>
+                  <p className="text-[12px] text-secondary">{email}</p>
                 </div>
               </div>
               {isTrue ? (
@@ -46,7 +59,7 @@ const Verification = () => {
                 <p className="text-[15px] text-[#575757] font-bold">
                   Phone Number
                 </p>
-                <p className="text-[13px] text-secondary">+1 695 201 794</p>
+                <p className="text-[13px] text-secondary">{phoneNumber}</p>
               </div>
             </div>
             {isTrue ? (
