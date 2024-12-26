@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import InputField from "./InputField";
 import CustomButton from "./CustomButton";
 import SelectField from "./SelectField";
-
-const stateCityData = {
-  California: ["Los Angeles", "San Francisco", "San Diego"],
-  Texas: ["Houston", "Dallas", "Austin"],
-  "New York": ["New York City", "Buffalo", "Rochester"],
-};
+import stateCityData from "../dataCountry/CountryData";
+// const stateCityData = {
+//   California: ["Los Angeles", "San Francisco", "San Diego"],
+//   Texas: ["Houston", "Dallas", "Austin"],
+//   "New York": ["New York City", "Buffalo", "Rochester"],
+// };
 
 const UserInformation = ({
   handleNext,
