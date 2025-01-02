@@ -7,6 +7,7 @@ import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { FiLoader } from "react-icons/fi";
 import axios from "../axios";
+import { ErrorToast } from "../components/Toaster";
 
 const SocialLogin = () => {
   const navigate = useNavigate();
@@ -20,26 +21,30 @@ const SocialLogin = () => {
     try {
       setAppleLoading(true);
       const result = await signInWithPopup(auth, appleProvider);
+      console.log("result--> ", result);
       if (result) {
-        const token = await result?.user?.getIdToken();
-        if (token) {
+        // const token = await result?.user?.getIdToken();
+        if (result) {
           axios
-            .post(`auth/social/logIn`, {
-              role: "singleuser",
-              firebaseIdToken: token,
-              // fcmToken:"",
+            .post(`auth/dispensary-social-signup`, {
+              idToken: result?._tokenResponse?.idToken,
+              email: result?.user?.email,
             })
             .then(
               (response) => {
                 console.log("🚀 ~ handleAppleLogin ~ response:", response);
 
                 sessionStorage.setItem("token", response?.data?.data?.token);
-                if (response?.data?.data?.token) {
-                  if (response?.data?.data?.isSubscribed === true) {
-                    navigate("/congrats");
-                  } else {
-                    navigate("/buy-package");
-                  }
+                if (response?.data?.success === true) {
+                  navigate("/userinfo");
+                } else {
+                  console.error(
+                    "Login failed:",
+                    response?.data?.message || "Unknown error"
+                  );
+                  ErrorToast(
+                    response?.data?.message || "Login failed. Please try again."
+                  );
                 }
               },
               (error) => {
@@ -66,39 +71,45 @@ const SocialLogin = () => {
     try {
       setGoogleLoading(true);
       const result = await signInWithPopup(auth, googleProvider);
+      console.log(result, "==========>");
       if (result) {
-        const token = await result?.user?.getIdToken();
-        if (token) {
-          axios
-            .post(`/auth/social/logIn`, {
-              role: "singleuser",
-              firebaseIdToken: token,
-              // fcmToken:"",
-            })
-            .then(
-              (response) => {
-                sessionStorage.setItem("token", response?.data?.data?.token);
-                if (response?.data?.data?.token) {
-                  if (response?.data?.data?.isSubscribed === true) {
-                    navigate("/congrats");
-                  } else {
-                    navigate("/buy-package");
-                  }
-                }
-              },
-              (error) => {
-                console.log(error);
-                if (
-                  error?.response?.status == 401 &&
-                  error?.response?.data?.message == "No such user found"
-                ) {
-                  setIdToken(token);
-                  setShowModal(true);
-                }
-                setGoogleLoading(false);
+        // const token = await result?.user?.getIdToken();
+        // if (token) {
+        axios
+          .post(`auth/dispensary-social-signup`, {
+            idToken: result?._tokenResponse?.idToken,
+            email: result?.user?.email,
+            // fcmToken:"",
+          })
+          .then(
+            (response) => {
+              sessionStorage.setItem("token", response?.data?.data?.token);
+              console.log(response, "respnse===>");
+              if (response?.data?.success === true) {
+                navigate("/userinfo");
+              } else {
+                console.error(
+                  "Login failed:",
+                  response?.data?.message || "Unknown error"
+                );
+                ErrorToast(
+                  response?.data?.message || "Login failed. Please try again."
+                );
               }
-            );
-        }
+            },
+            (error) => {
+              console.log(error);
+              if (
+                error?.response?.status == 401 &&
+                error?.response?.data?.message == "No such user found"
+              ) {
+                setIdToken(token);
+                setShowModal(true);
+              }
+              setGoogleLoading(false);
+            }
+          );
+        // }
       }
     } catch (err) {
       setGoogleLoading(false);
@@ -130,7 +141,7 @@ const SocialLogin = () => {
       <div
         className="flex justify-between items-center bg-dark text-white font-medium text-[14px]
        text-center md:w-[400px] md:px-4 py-2.5 mt-2 md:mx-2 rounded-2xl"
-       onClick={()=>handleAppleLogin()}
+        onClick={() => handleAppleLogin()}
       >
         <div>
           <FaApple className="text-[26px] ml-4" />
@@ -140,5 +151,5 @@ const SocialLogin = () => {
     </div>
   );
 };
-  
+
 export default SocialLogin;
