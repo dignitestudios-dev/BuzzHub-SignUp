@@ -14,6 +14,7 @@ const SocialLogin = () => {
   const [appleLoading, setAppleLoading] = useState(false);
   const [facebookLoading, setFacebookLoading] = useState(false);
   const [idToken, setIdToken] = useState(null);
+  const [error, setError] = useState("");
 
   const handleAppleLogin = async () => {
     try {
@@ -31,7 +32,7 @@ const SocialLogin = () => {
             .then(
               (response) => {
                 console.log("🚀 ~ handleAppleLogin ~ response:", response);
-                // just for now
+
                 sessionStorage.setItem("token", response?.data?.data?.token);
                 if (response?.data?.data?.token) {
                   if (response?.data?.data?.isSubscribed === true) {
@@ -76,7 +77,6 @@ const SocialLogin = () => {
             })
             .then(
               (response) => {
-                // just for now
                 sessionStorage.setItem("token", response?.data?.data?.token);
                 if (response?.data?.data?.token) {
                   if (response?.data?.data?.isSubscribed === true) {
@@ -103,8 +103,8 @@ const SocialLogin = () => {
     } catch (err) {
       setGoogleLoading(false);
       setError("Cannot open google signin modal.");
-    }finally{
-       setGoogleLoading(false);
+    } finally {
+      setGoogleLoading(false);
     }
   };
 
@@ -130,6 +130,7 @@ const SocialLogin = () => {
       <div
         className="flex justify-between items-center bg-dark text-white font-medium text-[14px]
        text-center md:w-[400px] md:px-4 py-2.5 mt-2 md:mx-2 rounded-2xl"
+       onClick={()=>handleAppleLogin()}
       >
         <div>
           <FaApple className="text-[26px] ml-4" />
