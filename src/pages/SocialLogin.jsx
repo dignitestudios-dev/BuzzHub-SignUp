@@ -103,13 +103,15 @@ const SocialLogin = () => {
     } catch (err) {
       setGoogleLoading(false);
       setError("Cannot open google signin modal.");
+    }finally{
+       setGoogleLoading(false);
     }
   };
 
   return (
     <div className="md:flex md:justify-center w-full">
       <div
-        // onClick={handleGoogleLogin}
+        onClick={() => handleGoogleLogin()}
         className=" flex justify-between items-center bg-light text-black font-medium text-[14px]
        text-center md:w-[400px] md:px-4 py-2.5 mt-2 md:mx-2 rounded-2xl cursor-pointer"
       >
@@ -122,12 +124,7 @@ const SocialLogin = () => {
         </div>
         <div className="w-full">Continue With Google</div>
         {googleLoading && (
-          <div
-            className="w-[108.31px] h-[88px] rounded-[16px] bg-[#1A293D] text-white text-2xl 
-                flex items-center justify-center mx-1"
-          >
-            <FiLoader className="text-white text-[32px] animate-spin mx-auto" />
-          </div>
+          <FiLoader className="text-[#1A293D] text-[32px] animate-spin me-2" />
         )}
       </div>
       <div
