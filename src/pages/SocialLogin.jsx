@@ -72,52 +72,64 @@ const SocialLogin = () => {
       setGoogleLoading(true);
       const result = await signInWithPopup(auth, googleProvider);
       console.log(result, "==========>");
+  
       if (result) {
-        // const token = await result?.user?.getIdToken();
-        // if (token) {
-        axios
-          .post(`auth/dispensary-social-signup`, {
-            idToken: result?._tokenResponse?.idToken,
-            email: result?.user?.email,
-            // fcmToken:"",
-          })
-          .then(
-            (response) => {
-              sessionStorage.setItem("token", response?.data?.data?.token);
-              console.log(response, "respnse===>");
-              if (response?.data?.success === true) {
-                navigate("/userinfo");
-              } else {
-                console.error(
-                  "Login failed:",
-                  response?.data?.message || "Unknown error"
-                );
-                ErrorToast(
-                  response?.data?.message || "Login failed. Please try again."
-                );
+        const token = await result?.user?.getIdToken();
+        
+  
+        if (token) {
+          axios
+            .post(`auth/dispensary-social-signup`, {
+              idToken: result?._tokenResponse?.idToken,
+              email: result?.user?.email,
+            })
+            .then(
+              (response) => {
+                sessionStorage.setItem("token", response?.data?.data?.token);
+                console.log(response, "respnse===>");
+  
+                if (response?.data?.success === true) {
+                  navigate("/userinfo");
+                } else {
+                  console.error(
+                    "Login failed:",
+                    response?.data?.message || "Unknown error"
+                  );
+                  ErrorToast(
+                    response?.data?.message || "Login failed. Please try again."
+                  );
+                }
+              },
+              (error) => {
+                console.log(error);
+  
+               
+                if (
+                  error?.response?.status === 401 &&
+                  error?.response?.data?.message === "No such user found"
+                ) {
+                  setIdToken(token);
+                  setShowModal(true);
+                } else {
+                  console.error("Unexpected error:", error);
+                  ErrorToast("An unexpected error occurred.");
+                }
+  
+                setGoogleLoading(false);
               }
-            },
-            (error) => {
-              console.log(error);
-              if (
-                error?.response?.status == 401 &&
-                error?.response?.data?.message == "No such user found"
-              ) {
-                setIdToken(token);
-                setShowModal(true);
-              }
-              setGoogleLoading(false);
-            }
-          );
-        // }
+            );
+        } else {
+          throw new Error("Failed to retrieve token from Google login.");
+        }
       }
     } catch (err) {
-      setGoogleLoading(false);
+      console.error("Google login error:", err);
       setError("Cannot open google signin modal.");
     } finally {
       setGoogleLoading(false);
     }
   };
+  
 
   return (
     <div className="md:flex md:justify-center w-full">
@@ -138,7 +150,7 @@ const SocialLogin = () => {
           <FiLoader className="text-[#1A293D] text-[32px] animate-spin me-2" />
         )}
       </div>
-      <div
+      {/* <div
         className="flex justify-between items-center bg-dark text-white font-medium text-[14px]
        text-center md:w-[400px] md:px-4 py-2.5 mt-2 md:mx-2 rounded-2xl"
         onClick={() => handleAppleLogin()}
@@ -147,7 +159,7 @@ const SocialLogin = () => {
           <FaApple className="text-[26px] ml-4" />
         </div>
         <div className="w-full">Continue With Apple</div>
-      </div>
+      </div> */}
     </div>
   );
 };
