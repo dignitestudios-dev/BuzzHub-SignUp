@@ -37,7 +37,7 @@ const InputField = ({
       setStartAddress(place?.formatted_address);
       setCoordinates({
         type: "Point",
-        coordinates:{lat:lat,lng:lng},
+        coordinates: { lat: lat, lng: lng },
       });
       setOriginCoords([lat, lng]);
     }
@@ -65,13 +65,13 @@ const InputField = ({
                   className="w-6 h-4 mr-2"
                 />
               </span> */}
-              <span className="text-md text-[#6B7373] ml-4 -mr-4">+1</span>
+              <span className="text-md text-[#6B7373] ml-7 -mr-7">+1</span>
             </div>
           )}
           {keyname == "streetAddress" && index == 1 ? (
             isLoaded && (
               <Autocomplete
-                className="w-full lg:w-[48%]"
+                className="w-[96%] lg:w-[46%]"
                 onLoad={(autocomplete) =>
                   (startLocationRef.current = autocomplete)
                 }
@@ -82,7 +82,7 @@ const InputField = ({
                     disabled={isDisabled}
                     type="text"
                     placeholder={placeholder}
-                    className={`w-full text-sm text-black placeholder:text-black ml-5 placeholder:font-normal 
+                    className={`w-full text-sm text-[#1D7C42] placeholder:text-black ml-2 placeholder:font-normal 
                   font-normal ${
                     isPhone ? "pr-4 pl-2" : "px-4"
                   } lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none bg-light `}
@@ -100,7 +100,9 @@ const InputField = ({
               disabled={isDisabled}
               type={isPassVisible ? "text" : type}
               placeholder={placeholder}
-              className={`w-full text-sm text-black placeholder:text-black ml-5 placeholder:font-normal 
+              className={`w-full text-sm text-[#1D7C42] placeholder:text-black ${
+                icon ? "ml-7" : "ml-2"
+              } placeholder:font-normal 
             font-normal ${
               isPhone ? "pr-4 pl-2" : "px-4"
             } lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none bg-light `}

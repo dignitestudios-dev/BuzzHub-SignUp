@@ -175,11 +175,11 @@ const SignUp = () => {
                 onInput={(e) => {
                   e.target.value = e.target.value.replace(/[^A-Za-z\s]/g, "");
                 }}
-                className="w-full pl-8"
+                icon={true}
               />
               <CiUser
                 size={20}
-                className={`text-gray-600 absolute left-2 ${
+                className={`text-gray-600 absolute left-2 ml-2 ${
                   errors.fullName ? "top-[25%]" : "top-[35%]"
                 }`}
               />
@@ -197,11 +197,11 @@ const SignUp = () => {
                   },
                 })}
                 error={errors.email}
-                className="w-full pl-8"
+                icon={true}
               />
               <PiEnvelopeLight
                 size={20}
-                className={`text-gray-600 absolute left-2 ${
+                className={`text-gray-600 absolute left-2 ml-2 ${
                   errors.email ? "top-[25%]" : "top-[35%]"
                 }`}
               />
@@ -227,11 +227,11 @@ const SignUp = () => {
                 onInput={(e) => {
                   e.target.value = e.target.value.replace(/\D/g, "");
                 }}
-                className="w-full pl-8"
+                icon={true}
               />
               <CiPhone
                 size={20}
-                className={`text-gray-600 absolute left-2 ${
+                className={`text-gray-600 absolute left-2 ml-2 ${
                   errors.phoneNumber ? "top-[25%]" : "top-[35%]"
                 }`}
               />
@@ -258,11 +258,11 @@ const SignUp = () => {
                 placeholder={"Enter your password here"}
                 type={"password"}
                 error={errors.password}
-                className="w-full pl-8" // Add padding on the left for the icon
+                icon={true}
               />
               <CiLock
                 size={20}
-                className={`text-gray-600 absolute left-2 ${
+                className={`text-gray-600 absolute left-2 ml-2 ${
                   errors.password ? "top-[25%]" : "top-[35%]"
                 }`}
               />
@@ -286,11 +286,11 @@ const SignUp = () => {
                 placeholder={"Enter confirm password here"}
                 type={"password"}
                 error={errors.confPassword}
-                className="w-full pl-8" // Add padding on the left for the icon
+                icon={true}
               />
               <CiLock
                 size={20}
-                className={`text-gray-600 absolute left-2 ${
+                className={`text-gray-600 absolute left-2 ml-2 ${
                   errors.confPassword ? "top-[25%]" : "top-[35%]"
                 }`}
               />

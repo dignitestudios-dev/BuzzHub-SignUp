@@ -39,11 +39,14 @@ const UserProfile = ({
 
   return (
     <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-      <p className="text-center text-[24px] font-[600] text-primary leading-[22px] mt-6">
+      <p className="text-center text-[24px] font-[600] text-primary leading-[22px] mt-0">
         {imagePreview ? "Uploaded Image" : "Upload Image"}
       </p>
       <div className="w-full flex justify-center items-center mt-2">
-        <div className="relative flex items-center justify-center w-[88px] h-[88px] mb-4  mt-4 border-2 border-primary border-dashed bg-[#F6F6F6] rounded-full">
+        <div
+          className="relative flex items-center justify-center w-[88px] h-[88px] mb-4  mt-4 border-2
+         border-primary border-dashed bg-[#F6F6F6] rounded-full"
+        >
           {imagePreview ? (
             <img
               src={imagePreview}
@@ -88,7 +91,7 @@ const UserProfile = ({
           {...register("bio")}
           type="text"
           placeholder="Bio"
-          className="w-full text-sm text-black placeholder:text-black placeholder:font-normal h-[80px]
+          className="w-full text-sm text-[#1D7C42] placeholder:text-black placeholder:font-normal h-[80px]
             font-medium px-4 lg:py-3 md:py-2 py-3  rounded-xl outline-none bg-light shadow-sm"
           maxLength={200}
         />
@@ -126,7 +129,7 @@ const UserProfile = ({
                     // setValue("closingHour", formattedTime);
                   },
                 })}
-                className="w-[98%] text-sm text-secondary placeholder:font-normal h-[56px] font-medium 
+                className="w-[98%] text-sm text-[#1D7C42] placeholder:font-normal h-[56px] font-medium 
                  px-4 lg:py-3 md:py-2 py-3 my-1 rounded-xl outline-none bg-light shadow-sm"
               />
             )}
@@ -181,7 +184,7 @@ const UserProfile = ({
                   },
                 })}
                 // onChange={}
-                className="w-[98%] text-sm text-secondary placeholder:font-normal h-[56px] font-medium 
+                className="w-[98%] text-sm text-[#1D7C42] placeholder:font-normal h-[56px] font-medium 
                 px-4 lg:py-3 md:py-2 py-3 my-1 rounded-xl outline-none bg-light shadow-sm"
               />
             )}

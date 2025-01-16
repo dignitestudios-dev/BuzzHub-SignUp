@@ -20,8 +20,6 @@ const UserInfo = () => {
   const [city, setCity] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [pickupType, setPickupType] = useState("");
-  console.log("🚀 ~ UserInfo ~ pickupType:", pickupType);
-  console.log(coordinates, "<--cordinatesss");
 
   const {
     register,

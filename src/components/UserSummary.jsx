@@ -18,7 +18,8 @@ const UserSummary = ({
 }) => {
   const navigate = useNavigate();
   const formData = watch();
-  console.log(formData, "DOrmdata");
+  console.log("🚀 ~ formData:", formData);
+
   const onFormSubmit = (data) => {
     handleApi(data);
   };
@@ -41,44 +42,50 @@ const UserSummary = ({
           )}
         </div>
       </div>
-      <p className="text-center mt-1 text-[13px] font-bold ">Image</p>
+      <p className="text-center mt-1 text-[13px] font-bold ">Uploaded Image</p>
       <div className="w-full h-auto flex flex-col justify-start items-start mt-2">
-      <label className="text-[10px] text-secondary">Bio</label>
+        <label className="text-[14px] text-secondary pl-1">Bio</label>
         <textarea
           value={formData?.bio}
           disabled
           type="text"
           placeholder="Bio"
-          className="w-full text-sm text-black placeholder:font-normal 
-            font-normal px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none bg-light"
+          className="w-full text-sm text-[#1D7C42] placeholder:font-normal 
+            font-normal px-4 lg:py-3 md:py-2 py-3 mb-3 rounded-xl outline-none bg-light"
         />
       </div>
       <div className="w-full h-auto flex justify-between items-center">
         <div>
-      <label className="text-[10px] text-secondary">Opening Hour</label>
+          <label className="text-[14px] text-secondary pl-1">
+            Opening Hour
+          </label>
           <input
             value={formData?.openingHour}
             disabled
             type="text"
             placeholder="Opening Hour"
-            className="w-[95%] h-[56px] font-normal px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl
-             outline-none bg-light shadow-sm text-sm text-black placeholder:font-normal"
+            className="w-[95%] h-[56px] font-normal px-4 lg:py-3 md:py-2 py-3  mb-4 rounded-xl
+             outline-none bg-light shadow-sm text-sm text-[#1D7C42] placeholder:font-normal"
           />
         </div>
         <div>
-        <label className="text-[10px] text-secondary">Closing Hour</label>
+          <label className="text-[14px] text-secondary pl-1">
+            Closing Hour
+          </label>
           <input
             value={formData?.closingHour}
             disabled
             type="text"
             placeholder="Closing Hour"
-            className="w-[95%] h-[56px] font-normal px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl
-             outline-none bg-light shadow-sm text-sm text-black placeholder:font-normal"
+            className="w-[95%] h-[56px] font-normal px-4 lg:py-3 md:py-2 py-3 mb-4 rounded-xl
+             outline-none bg-light shadow-sm text-sm text-[#1D7C42] placeholder:font-normal"
           />
         </div>
       </div>
       <div className="w-full h-auto flex flex-col justify-start items-start">
-      <label className="text-[10px] text-secondary">Delivery Radius</label>
+        <label className="text-[14px] text-secondary pl-1">
+          Delivery Radius
+        </label>
         <InputField
           isDisabled={true}
           register={register("deliveryRadius")}
@@ -89,7 +96,9 @@ const UserSummary = ({
         />
       </div>
       <div className="w-full h-auto flex flex-col justify-start items-start my-4">
-      <label className="text-[10px] text-secondary">Dispensary Name</label>
+        <label className="text-[14px] text-secondary pl-1">
+          Dispensary Name
+        </label>
         <InputField
           placeholder={"Dispensary Name"}
           type={"name"}
@@ -98,7 +107,9 @@ const UserSummary = ({
         />
       </div>
       <div className="w-full h-auto flex flex-col justify-start items-start my-4">
-      <label className="text-[10px] text-secondary">Street Address</label>
+        <label className="text-[14px] text-secondary pl-1">
+          Street Address
+        </label>
         <InputField
           placeholder={"Street Address"}
           type={"text"}
@@ -108,7 +119,7 @@ const UserSummary = ({
         />
       </div>
       <div className="w-full h-auto flex flex-col justify-start items-start my-4">
-      <label className="text-[10px] text-secondary">City</label>
+        <label className="text-[14px] text-secondary pl-1">City</label>
         <InputField
           placeholder={"City"}
           type={"text"}
@@ -118,7 +129,7 @@ const UserSummary = ({
         />
       </div>
       <div className="w-full h-auto flex flex-col justify-start items-start my-4">
-      <label className="text-[10px] text-secondary">State</label>
+        <label className="text-[14px] text-secondary pl-1">State</label>
         <InputField
           placeholder={"State"}
           type={"text"}
@@ -128,7 +139,7 @@ const UserSummary = ({
         />
       </div>
       <div className="w-full h-auto flex flex-col justify-start items-start my-4">
-      <label className="text-[10px] text-secondary">Country</label>
+        <label className="text-[14px] text-secondary pl-1">Country</label>
         <InputField
           placeholder={"Country"}
           type={"text"}
@@ -138,7 +149,7 @@ const UserSummary = ({
         />
       </div>
       <div className="w-full h-auto flex flex-col justify-start items-start my-4">
-      <label className="text-[10px] text-secondary">Zip Code</label>
+        <label className="text-[14px] text-secondary pl-1">Zip Code</label>
         <InputField
           placeholder={"Zip Code"}
           type={"text"}
@@ -149,7 +160,7 @@ const UserSummary = ({
       </div>
 
       <div className="mt-4 mx-1">
-        <p className="text-[12px] font-medium">Delivery Option</p>
+        <p className="text-[14px] text-secondary ">Delivery Option</p>
         <div className="flex items-center my-2">
           <input
             type="checkbox"
@@ -179,10 +190,10 @@ const UserSummary = ({
         </div>
       </div>
 
-      <div className="py-2">
-        <p className="text-[12px] font-medium">License</p>
+      <div className="pt-2">
+        <p className="text-[14px] text-secondary pl-1">License</p>
       </div>
-      <div className="flex justify-center mt-1 mb-7">
+      <div className="flex justify-center mt-1 mb-2">
         <div className="w-[343px] h-[153px] bg-white shadow-lg cursor-pointer rounded-xl flex flex-col gap-1 justify-center items-center relative">
           <label className="text-sm font-medium text-center">
             Uploaded Image
@@ -208,8 +219,8 @@ const UserSummary = ({
           />
         </div>
       </div>
-      <div className="py-2">
-        <p className="text-[12px] font-medium">Registration</p>
+      <div className="pt-2">
+        <p className="text-[14px] text-secondary">Registration</p>
       </div>
       <div className="flex justify-center mt-1 mb-2">
         <div className="w-[343px] h-[153px] bg-white shadow-lg cursor-pointer rounded-xl flex flex-col gap-1 justify-center items-center relative">

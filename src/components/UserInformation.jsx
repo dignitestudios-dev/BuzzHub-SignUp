@@ -30,6 +30,9 @@ const UserInformation = ({
       placeholder: "Dispensary name",
       type: "text",
       validation: { required: "Please enter the dispensary name." },
+      onInput: (e) => {
+        e.target.value = e.target.value.replace(/[^A-Za-z\s]/g, "");
+      },
     },
     {
       key: "streetAddress",
@@ -62,7 +65,7 @@ const UserInformation = ({
   // Handle state change
   const handleStateChange = (e) => {
     const selectedState = e.target.value;
-    console.log("🚀 ~ handleStateChange ~ selectedState:", selectedState);
+
     setCities(stateCityData[selectedState] || []);
     setSelectedState(selectedState);
     // setValue("city", "");
@@ -91,6 +94,7 @@ const UserInformation = ({
               error={errors[field.key]}
               register={register(field.key, field.validation)}
               isDisabled={field?.disabled ? field?.disabled : ""}
+              onInput={field.onInput && field.onInput}
             />
           </div>
         );

@@ -75,11 +75,14 @@ const UserVerification = ({
 
   return (
     <div className="w-full h-full">
-      <div className="py-2">
-        <p className="text-[12px] font-medium">License</p>
+      <div className="pt-2 pb-1">
+        <p className="text-[12px] font-bold">License</p>
       </div>
       <div className="flex justify-center">
-        <div className="w-[330px] h-[140px] bg-white border-dashed border-2 border-primary cursor-pointer rounded-xl flex flex-col gap-1 justify-center items-center relative">
+        <div
+          className="w-[330px] h-[140px] bg-white border-dashed border-2 border-primary cursor-pointer rounded-xl
+         flex flex-col gap-0 justify-center items-center relative"
+        >
           {fileNames.front ? (
             <img
               src={fileNames.front ? URL.createObjectURL(fileNames.front) : ""}
@@ -153,8 +156,8 @@ const UserVerification = ({
       {errors.back && (
         <p className="text-xs text-red-500 text-center">{errors.back}</p>
       )}
-      <div className="py-2">
-        <p className="text-[12px] font-[500] mt-3 mb-3">Registration</p>
+      <div className="pt-4 pb-1">
+        <p className="text-[12px] font-bold ">Registration</p>
       </div>
       <div className="flex justify-center">
         <div className="w-[330px] h-[140px] bg-white border-dashed border-2 border-primary cursor-pointer rounded-xl flex flex-col gap-1 justify-center items-center relative">

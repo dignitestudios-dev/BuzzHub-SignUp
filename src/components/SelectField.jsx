@@ -26,11 +26,14 @@ const SelectField = ({
             value={value}
             onChange={handleChange}
             // {...register}
-            className="w-full text-sm text-black placeholder:font-normal font-normal px-8 lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none bg-light"
+            className={`w-full text-sm ${
+              value ? "text-[#1D7C42]" : "text-black"
+            } text-[#1D7C42] placeholder:font-normal font-normal px-5 lg:py-3 md:py-2 py-3 my-2
+             rounded-xl outline-none bg-light`}
           >
-            <option value="" label={`Select ${label}`}  disabled hidden/>
+            <option value="" label={`Select ${label}`} disabled hidden />
             {options?.map((option, index) => (
-              <option key={index} value={option} >
+              <option key={index} value={option}>
                 {option}
               </option>
             ))}
