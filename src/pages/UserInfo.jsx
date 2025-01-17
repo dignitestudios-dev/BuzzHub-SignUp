@@ -77,7 +77,7 @@ const UserInfo = () => {
           coordinates?.coordinates?.lat,
         ])
       );
-      data.append("location[type]", "Point");
+      // data.append("location[type]", "Point");
 
       // Append file data (if exists)
       if (formData.image[0]) {

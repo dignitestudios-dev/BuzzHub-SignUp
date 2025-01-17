@@ -42,7 +42,7 @@ const Login = () => {
         navigate("/packages");
       } else if (isSessionComplete === "true" && status === "Rejected") {
         navigate("/req-success", {
-          state: "reject",
+          state: rejectionReason,
           rejectReason: rejectionReason || null,
         });
       }

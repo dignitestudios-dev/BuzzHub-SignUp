@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const baseUrl = "https://api.buzzhubapp.com";
+// export const baseUrl = "https://api.buzzhubapp.com";
 
-// export const baseUrl = "http://192.168.10.145:5000";
+export const baseUrl = "http://192.168.8.83:5000";
 
 const instance = axios.create({
   baseURL: baseUrl,
