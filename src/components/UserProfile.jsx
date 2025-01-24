@@ -88,7 +88,9 @@ const UserProfile = ({
 
       <div className="w-full h-auto flex flex-col justify-start items-start mt-3">
         <textarea
-          {...register("bio")}
+          {...register("bio", {
+            required: "Please enter bio",
+          })}
           type="text"
           placeholder="Bio"
           className="w-full text-sm text-[#1D7C42] placeholder:text-black placeholder:font-normal h-[80px]
@@ -96,6 +98,11 @@ const UserProfile = ({
           maxLength={200}
         />
       </div>
+      {errors.bio && (
+        <p className="text-red-500 text-xs text-center mt-1">
+          {errors.bio.message}
+        </p>
+      )}
       <div className="w-full h-auto flex justify-between items-center mt-1">
         <div className="w-full">
           <label className="text-[10px] text-secondary">Opening Hour</label>
@@ -103,7 +110,7 @@ const UserProfile = ({
             name="openingHour"
             control={control}
             rules={{
-              required: "Closing Hour is required",
+              required: "Closing time is required",
             }}
             render={({ field }) => (
               <input
@@ -244,12 +251,12 @@ const UserProfile = ({
             className="w-[16px] h-[16px] accent-primary"
             checked={pickupType === "Pickup"}
             onChange={() => {
-              if (pickupType === "both" || pickupType === "Deliver at home") {
+              if (pickupType === "Both" || pickupType === "Deliver at home") {
                 setPickupType("Pickup");
                 setValue("pickupType", "Pickup");
               } else {
-                setPickupType("both");
-                setValue("pickupType", "both");
+                setPickupType("Both");
+                setValue("pickupType", "Both");
               }
             }}
           />
@@ -261,12 +268,12 @@ const UserProfile = ({
               required: "Please select a delivery option",
             })}
             onChange={() => {
-              if (pickupType === "both" || pickupType === "Pickup") {
+              if (pickupType === "Both" || pickupType === "Pickup") {
                 setPickupType("Deliver at home");
                 setValue("pickupType", "Deliver at home");
               } else {
-                setPickupType("both");
-                setValue("pickupType", "both");
+                setPickupType("Both");
+                setValue("pickupType", "Both");
               }
             }}
             type="checkbox"
@@ -282,12 +289,12 @@ const UserProfile = ({
               required: "Please select a delivery option",
             })}
             onChange={() => {
-              setPickupType("both");
-              setValue("pickupType", "both");
+              setPickupType("Both");
+              setValue("pickupType", "Both");
             }}
             type="checkbox"
             className="w-[16px] h-[16px] accent-primary"
-            checked={pickupType === "both"}
+            checked={pickupType === "Both"}
           />
           <label className="text-[13px] ml-1">Both</label>
         </div>

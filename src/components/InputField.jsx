@@ -20,10 +20,10 @@ const InputField = ({
 }) => {
   const [isPassVisible, setIsPassVisible] = useState(false);
 
-  // const Api_Key = import.meta?.env?.GOOGLE_MAP_API_KEY;
+  const Api_Key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
   const startLocationRef = useRef();
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyC7Wlm05f79pXmDwt-r9ACOGOwkk7O3c6g",
+    googleMapsApiKey: Api_Key,
     libraries: ["places"],
   });
 

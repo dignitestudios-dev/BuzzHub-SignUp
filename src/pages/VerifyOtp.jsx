@@ -59,7 +59,6 @@ const VerifyOtp = () => {
       let obj = { email: otpEmail, code: getOtpValue() };
 
       const response = await axios.post("/auth/validate-otp", obj);
-      console.log("🚀 ~ handleVerifyOtp ~ response:", response);
       if (response?.status === 200) {
         sessionStorage.setItem("token", response?.data?.token);
         setLoading(false);
@@ -104,14 +103,14 @@ const VerifyOtp = () => {
         onClick={handleClick}
         disabled={disabled}
         className={`w-full h-[50px] rounded-[12px] text-white font-medium flex justify-center items-center text-[14px] ${
-          disabled
-            ? "bg-gray-400 opacity-50 cursor-not-allowed"
-            : "bg-primary"
+          disabled ? "bg-gray-400 opacity-50 cursor-not-allowed" : "bg-primary"
         }`}
       >
         <div className="flex items-center">
           <span className="mr-2">{text}</span>
-          {loading && <FiLoader className="animate-spin text-lg mx-auto mt-1" />}
+          {loading && (
+            <FiLoader className="animate-spin text-lg mx-auto mt-1" />
+          )}
         </div>
       </button>
     );
@@ -122,7 +121,9 @@ const VerifyOtp = () => {
       <div className="flex justify-center items-center w-full">
         <div className="bg-white h-full lg:w-[30%] md:w-[50%] w-[90%] p-6 rounded-xl">
           <div className="w-full flex justify-center items-center flex-col">
-            <h1 className="text-[32px] md:text-[48px] font-bold">Verification</h1>
+            <h1 className="text-[32px] md:text-[48px] font-bold">
+              Verification
+            </h1>
             <p className="text-[#8A8A8A] font-normal md:text-[17px] text-[14px]">
               Enter the OTP sent to your email
             </p>
@@ -146,7 +147,7 @@ const VerifyOtp = () => {
           <div className="w-full h-auto flex justify-center lg:flex lg:flex-col mb-10 md:justify-start md:mb-20 gap-1">
             <div className="w-full lg:w-[434px] flex justify-center items-center lg:justify-center lg:items-center gap-1">
               <span className="text-[13px] font-medium text-[#8a8a8a]">
-                Didn't receive OTP? 
+                Didn't receive OTP?
               </span>
               {isActive ? (
                 <CountDown
@@ -172,7 +173,7 @@ const VerifyOtp = () => {
               text="Verify"
               handleClick={handleVerifyOtp}
               loading={loading}
-              disabled={!isOtpFilled || loading} 
+              disabled={!isOtpFilled || loading}
             />
           </div>
         </div>

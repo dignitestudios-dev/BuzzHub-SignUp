@@ -183,7 +183,7 @@ const UserSummary = ({
           <input
             type="checkbox"
             className="w-[16px] h-[16px] accent-primary"
-            checked={pickupType === "both"}
+            checked={pickupType === "Both"}
             disabled
           />
           <label className="text-[12px] ml-1">Both</label>
