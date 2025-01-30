@@ -2,9 +2,7 @@ import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 import React, { useState, useEffect, useRef } from "react";
 
 const Map = ({ isLoaded, center }) => {
-  const onLoadMarker = (marker) => {
-    console.log("Marker", marker.position.lat);
-  };
+  const onLoadMarker = (marker) => {};
   return (
     <div className="Map lg:w-[20%] ">
       {!isLoaded ? (

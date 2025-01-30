@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 const AddCard = () => {
   const { state } = useLocation();
 
-  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_API_KEY);
+  const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_API_KEY);
 
   const [cardHolderName, setCardHolderName] = useState("");
   const [nameError, setNameError] = useState(null);
