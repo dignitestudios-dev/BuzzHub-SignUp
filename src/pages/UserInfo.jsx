@@ -61,7 +61,7 @@ const UserInfo = () => {
       data.append("dispensaryName", formData.dispensaryName);
       data.append("bio", formData.bio);
       data.append("city", city);
-      data.append("country", formData.country);
+      data.append("country", "USA");
       data.append("deliveryRadius", formData.deliveryRadius);
       data.append("closingHourTime", closingTime);
       data.append("openingHourTime", startingTime);
