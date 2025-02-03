@@ -62,7 +62,7 @@ const UserInformation = ({
 
   const onSubmit = () => {
     if (Object.keys(coordinates).length === 0) {
-      setCoordinatesMessage("Please select a valid information");
+      setCoordinatesMessage("Please select a valid location");
       return;
     }
     handleNext();
