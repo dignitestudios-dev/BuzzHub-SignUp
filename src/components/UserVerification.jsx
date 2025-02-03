@@ -8,7 +8,6 @@ const UserVerification = ({
   fileNames,
   setFileNames,
 }) => {
-  console.log("🚀 ~ fileNames:", fileNames);
   // const fileName = false;
 
   const [errors, setErrors] = useState({
@@ -60,8 +59,9 @@ const UserVerification = ({
     const missingImages = Object.values(fileNames).some(
       (fileName) => !fileName
     );
+
     if (missingImages) {
-      setErrors((prevErrors) => ({
+      setErrors(() => ({
         front: !fileNames.front ? "Front image is required" : "",
         back: !fileNames.back ? "Back image is required" : "",
         left: !fileNames.left ? "Front image is required" : "",
@@ -69,7 +69,6 @@ const UserVerification = ({
       }));
       return; // Prevent going to the next step if any image is missing
     }
-
     handleNext();
   };
 
@@ -194,7 +193,7 @@ const UserVerification = ({
         </div>
       </div>
       {errors.left && (
-        <p className="text-xs text-red-500 text-center">{errors.front}</p>
+        <p className="text-xs text-red-500 text-center">{errors.left}</p>
       )}
       <div className="flex justify-center py-2">
         <div
@@ -234,7 +233,7 @@ const UserVerification = ({
         </div>
       </div>
       {errors.right && (
-        <p className="text-xs text-red-500 text-center">{errors.back}</p>
+        <p className="text-xs text-red-500 text-center">{errors.right}</p>
       )}
       <div className="pt-6">
         <CustomButton

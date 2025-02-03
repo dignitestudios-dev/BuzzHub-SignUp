@@ -111,7 +111,9 @@ const UserProfile = ({
         </div>
       </div>
       {imgError.profile && (
-        <p className="text-red-500 text-xs text-center">{imgError.profile}</p>
+        <p className="text-red-500 text-xs text-center -mt-2">
+          {imgError.profile}
+        </p>
       )}
 
       <div className="w-full h-auto flex flex-col justify-start items-start mt-3">

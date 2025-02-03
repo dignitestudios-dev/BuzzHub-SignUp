@@ -37,8 +37,8 @@ const UserInfo = () => {
     back: "",
     left: "",
     right: "",
-    profile: "",
   });
+  const [profileImg, setProfileImg] = useState({ profile: "" });
 
   const [sections] = useState([
     "Information",
@@ -56,7 +56,6 @@ const UserInfo = () => {
   };
 
   const handleApiCall = async (formData) => {
-    console.log("🚀 ~ handleApiCall ~ formData:", formData);
     setLoading(true);
     try {
       // data
@@ -83,8 +82,8 @@ const UserInfo = () => {
       // data.append("location[type]", "Point");
 
       // Append file data (if exists)
-      if (fileNames.profile) {
-        data.append("profilePicture", fileNames.profile);
+      if (profileImg.profile) {
+        data.append("profilePicture", profileImg.profile);
       }
       if (fileNames.front) {
         data.append("licenseFront", fileNames.front);
@@ -201,8 +200,8 @@ const UserInfo = () => {
               setValue={setValue}
               pickupType={pickupType}
               setPickupType={setPickupType}
-              fileNames={fileNames}
-              setFileNames={setFileNames}
+              fileNames={profileImg}
+              setFileNames={setProfileImg}
             />
           )}
           {step === 3 && (

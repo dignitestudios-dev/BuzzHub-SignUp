@@ -21,7 +21,7 @@ const SocialLogin = () => {
     try {
       setAppleLoading(true);
       const result = await signInWithPopup(auth, appleProvider);
-      console.log("result--> ", result);
+
       if (result) {
         // const token = await result?.user?.getIdToken();
         if (result) {
@@ -32,8 +32,6 @@ const SocialLogin = () => {
             })
             .then(
               (response) => {
-                console.log("🚀 ~ handleAppleLogin ~ response:", response);
-
                 sessionStorage.setItem("token", response?.data?.data?.token);
                 if (response?.data?.success === true) {
                   navigate("/userinfo");
@@ -71,12 +69,10 @@ const SocialLogin = () => {
     try {
       setGoogleLoading(true);
       const result = await signInWithPopup(auth, googleProvider);
-      console.log(result, "==========>");
-  
+
       if (result) {
         const token = await result?.user?.getIdToken();
-        
-  
+
         if (token) {
           axios
             .post(`auth/dispensary-social-signup`, {
@@ -86,8 +82,7 @@ const SocialLogin = () => {
             .then(
               (response) => {
                 sessionStorage.setItem("token", response?.data?.data?.token);
-                console.log(response, "respnse===>");
-  
+
                 if (response?.data?.success === true) {
                   navigate("/userinfo");
                 } else {
@@ -102,8 +97,7 @@ const SocialLogin = () => {
               },
               (error) => {
                 console.log(error);
-  
-               
+
                 if (
                   error?.response?.status === 401 &&
                   error?.response?.data?.message === "No such user found"
@@ -114,7 +108,7 @@ const SocialLogin = () => {
                   console.error("Unexpected error:", error);
                   ErrorToast("An unexpected error occurred.");
                 }
-  
+
                 setGoogleLoading(false);
               }
             );
@@ -129,7 +123,6 @@ const SocialLogin = () => {
       setGoogleLoading(false);
     }
   };
-  
 
   return (
     <div className="md:flex md:justify-center w-full">

@@ -18,7 +18,6 @@ const UserSummary = ({
 }) => {
   const navigate = useNavigate();
   const formData = watch();
-  console.log("🚀 ~ formData:", formData);
 
   const onFormSubmit = (data) => {
     handleApi(data);

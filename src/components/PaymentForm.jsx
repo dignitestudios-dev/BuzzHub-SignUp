@@ -70,7 +70,6 @@ const PaymentForm = ({ state }) => {
           planType: state,
           paymentMethodId: paymentMethod.id,
         });
-        console.log("🚀 ~ handleSubmit ~ response:", response);
 
         if (response.status === 200) {
           navigate("/req-success");
