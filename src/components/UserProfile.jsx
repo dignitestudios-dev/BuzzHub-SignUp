@@ -19,37 +19,70 @@ const UserProfile = ({
   setValue,
   setPickupType,
   pickupType,
+  fileNames,
+  setFileNames,
 }) => {
-  const [imagePreview, setImagePreview] = useState(null);
-
-  const onSubmit = (data) => {
-    console.log(data);
-    handleNext();
-  };
   const deliveryRadiusValue = watch("deliveryRadius");
 
-  const watchedPickupType = watch("pickupType", []);
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
+  const [imgError, setImgError] = useState({
+    profile: "",
+  });
+  const [error, setError] = useState(null);
+
+  const handleImageChange = (e, position) => {
+    const file = e.target.files[0];
     if (file) {
-      // Create a preview URL for the uploaded image
-      setImagePreview(URL.createObjectURL(file));
+      setFileNames((prevFileNames) => ({
+        ...prevFileNames,
+        [position]: file,
+      }));
     }
+
+    setImgError({ profile: "" });
+  };
+
+  const onSubmit = () => {
+    const missingImages = !fileNames.profile;
+    if (missingImages) {
+      setImgError(() => ({
+        profile: "Profile picture is required",
+      }));
+      return;
+    }
+
+    if (!pickupType) {
+      setError("Please select a delivery option");
+      return;
+    }
+    handleNext();
+  };
+
+  const handleCheckboxChange = (type) => {
+    if (pickupType === type) {
+      setPickupType("");
+    } else {
+      setPickupType(type);
+    }
+    setError("");
   };
 
   return (
     <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
       <p className="text-center text-[24px] font-[600] text-primary leading-[22px] mt-0">
-        {imagePreview ? "Uploaded Image" : "Upload Image"}
+        {fileNames?.profile ? "Uploaded Image" : "Upload Image"}
       </p>
       <div className="w-full flex justify-center items-center mt-2">
         <div
           className="relative flex items-center justify-center w-[88px] h-[88px] mb-4  mt-4 border-2
          border-primary border-dashed bg-[#F6F6F6] rounded-full"
         >
-          {imagePreview ? (
+          {fileNames?.profile ? (
             <img
-              src={imagePreview}
+              src={
+                fileNames?.profile
+                  ? URL.createObjectURL(fileNames?.profile)
+                  : ""
+              }
               alt="Uploaded Preview"
               className="w-full h-full object-cover rounded-full"
             />
@@ -72,18 +105,13 @@ const UserProfile = ({
           <input
             type="file"
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer my-1"
-            // onChange={(e) => handleImageChange(e)}
-            {...register("image", {
-              required: "Please upload an image",
-              onChange: (event) => handleImageChange(event),
-            })}
+            accept=".jpg,.jpeg,.png"
+            onChange={(e) => handleImageChange(e, "profile")}
           />
         </div>
       </div>
-      {errors.image && (
-        <p className="text-red-500 text-xs text-center">
-          {errors.image.message}
-        </p>
+      {imgError.profile && (
+        <p className="text-red-500 text-xs text-center">{imgError.profile}</p>
       )}
 
       <div className="w-full h-auto flex flex-col justify-start items-start mt-3">
@@ -244,63 +272,35 @@ const UserProfile = ({
         <p className="text-[13px] font-[600]">Fulfillment Method</p>
         <div className="flex items-center my-2">
           <input
-            {...register("pickupType", {
-              required: "Please select a delivery option",
-            })}
             type="checkbox"
             className="w-[16px] h-[16px] accent-primary"
             checked={pickupType === "Pickup"}
-            onChange={() => {
-              if (pickupType === "Both" || pickupType === "Deliver at home") {
-                setPickupType("Pickup");
-                setValue("pickupType", "Pickup");
-              } else {
-                setPickupType("Both");
-                setValue("pickupType", "Both");
-              }
-            }}
+            onChange={() => handleCheckboxChange("Pickup")}
           />
           <label className="text-[13px] ml-1">Self Pickup</label>
         </div>
+
         <div className="flex items-center my-2">
           <input
-            {...register("pickupType", {
-              required: "Please select a delivery option",
-            })}
-            onChange={() => {
-              if (pickupType === "Both" || pickupType === "Pickup") {
-                setPickupType("Deliver at home");
-                setValue("pickupType", "Deliver at home");
-              } else {
-                setPickupType("Both");
-                setValue("pickupType", "Both");
-              }
-            }}
             type="checkbox"
             className="w-[16px] h-[16px] accent-primary"
             checked={pickupType === "Deliver at home"}
+            onChange={() => handleCheckboxChange("Deliver at home")}
           />
           <label className="text-[13px] ml-1">Deliver at home</label>
         </div>
 
         <div className="flex items-center my-2">
           <input
-            {...register("pickupType", {
-              required: "Please select a delivery option",
-            })}
-            onChange={() => {
-              setPickupType("Both");
-              setValue("pickupType", "Both");
-            }}
             type="checkbox"
             className="w-[16px] h-[16px] accent-primary"
             checked={pickupType === "Both"}
+            onChange={() => handleCheckboxChange("Both")}
           />
           <label className="text-[13px] ml-1">Both</label>
         </div>
-        {errors.pickupType && (
-          <p className="text-red-500 text-xs">{errors.pickupType.message}</p>
-        )}
+
+        {error && <p className="text-red-500 text-xs">{error}</p>}
       </div>
 
       <div className="mt-8">

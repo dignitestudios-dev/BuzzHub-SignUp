@@ -34,10 +34,10 @@ const UserSummary = ({
       {/* <p className="text-[12px] font-medium mt-6">Review Summary</p> */}
       <div className="w-full flex justify-center items-center mt-1">
         <div className="relative flex items-center justify-center w-[80px] h-[80px] mt-4 border-2 bg-gray-200 rounded-full">
-          {formData?.image[0] && (
+          {fileNames?.front && (
             <img
               className="w-[80px] rounded-full h-[80px]"
-              src={URL.createObjectURL(formData?.image[0])}
+              src={URL.createObjectURL(fileNames?.front)}
             />
           )}
         </div>

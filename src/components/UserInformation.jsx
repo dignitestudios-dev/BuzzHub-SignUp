@@ -21,8 +21,10 @@ const UserInformation = ({
   setCity,
   selectedState,
   setSelectedState,
+  coordinates,
   setCoordinates,
 }) => {
+  const [coordinatesMessage, setCoordinatesMessage] = useState(null);
   const apiFields = [
     {
       key: "dispensaryName",
@@ -59,6 +61,10 @@ const UserInformation = ({
   ];
 
   const onSubmit = () => {
+    if (Object.keys(coordinates).length === 0) {
+      setCoordinatesMessage("Please select a valid information");
+      return;
+    }
     handleNext();
   };
 
@@ -86,6 +92,8 @@ const UserInformation = ({
           >
             <InputField
               setCoordinates={setCoordinates}
+              setCoordinatesMessage={setCoordinatesMessage}
+              coordinatesMessage={coordinatesMessage}
               text={field.label}
               placeholder={field.placeholder}
               type={field.type}
@@ -140,6 +148,7 @@ const UserInformation = ({
           }}
         />
       </div>
+
       <div className="pt-2">
         <CustomButton text={"Next"} type="submit" />
       </div>

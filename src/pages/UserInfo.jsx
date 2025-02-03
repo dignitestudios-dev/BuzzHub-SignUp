@@ -17,6 +17,7 @@ const UserInfo = () => {
 
   const [cities, setCities] = useState([]);
   const [coordinates, setCoordinates] = useState({});
+
   const [city, setCity] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [pickupType, setPickupType] = useState("");
@@ -36,6 +37,7 @@ const UserInfo = () => {
     back: "",
     left: "",
     right: "",
+    profile: "",
   });
 
   const [sections] = useState([
@@ -54,6 +56,7 @@ const UserInfo = () => {
   };
 
   const handleApiCall = async (formData) => {
+    console.log("🚀 ~ handleApiCall ~ formData:", formData);
     setLoading(true);
     try {
       // data
@@ -80,8 +83,8 @@ const UserInfo = () => {
       // data.append("location[type]", "Point");
 
       // Append file data (if exists)
-      if (formData.image[0]) {
-        data.append("profilePicture", formData.image[0]);
+      if (fileNames.profile) {
+        data.append("profilePicture", fileNames.profile);
       }
       if (fileNames.front) {
         data.append("licenseFront", fileNames.front);
@@ -167,6 +170,7 @@ const UserInfo = () => {
           {step === 1 && (
             <UserInformation
               handleNext={handleNext}
+              coordinates={coordinates}
               setCoordinates={setCoordinates}
               register={register}
               errors={errors}
@@ -197,6 +201,8 @@ const UserInfo = () => {
               setValue={setValue}
               pickupType={pickupType}
               setPickupType={setPickupType}
+              fileNames={fileNames}
+              setFileNames={setFileNames}
             />
           )}
           {step === 3 && (

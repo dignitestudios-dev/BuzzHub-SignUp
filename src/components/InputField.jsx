@@ -17,6 +17,8 @@ const InputField = ({
   isPhone = false,
   icon,
   setCoordinates,
+  coordinatesMessage,
+  setCoordinatesMessage,
 }) => {
   const [isPassVisible, setIsPassVisible] = useState(false);
 
@@ -41,6 +43,7 @@ const InputField = ({
         coordinates: { lat: lat, lng: lng },
       });
       setOriginCoords([lat, lng]);
+      setCoordinatesMessage(null);
     }
   };
 
@@ -127,6 +130,9 @@ const InputField = ({
         </div>
       </div>
       {error && <p className="text-[#FF453A] text-sm">{error.message}</p>}
+      {coordinatesMessage && index == 1 ? (
+        <p className="text-xs text-red-600">{coordinatesMessage}</p>
+      ) : null}
       {keyname == "streetAddress" && index == 1 && (
         <div className="w-full">
           <Map
