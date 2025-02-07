@@ -20,8 +20,8 @@ const Packages = () => {
         >
           <div>
             <div className="flex flex-col justify-center items-center px-2">
-              <p className="text-lg font-medium">Basic Plan</p>
-              <p className="text-[28px] font-bold text-[#1D7C42]">$89.99</p>
+              <p className="text-lg font-medium">For 3 Months</p>
+              <p className="text-[28px] font-bold text-[#1D7C42]">$250</p>
             </div>
             <div className="flex justify-center items-center">
               <ul className="mt-2 mb-6 space-y-1 ">
@@ -48,8 +48,8 @@ const Packages = () => {
         <div className="overflow-auto shadow-customShadow rounded-xl p-6 md:mb-0 min-h-[210px] max-h-[300px] bg-secondary ">
           <div>
             <div className="flex flex-col justify-center items-center px-2">
-              <p className="text-lg font-medium">Standard Plan</p>
-              <p className="text-[28px] font-bold text-[#1D7C42]">$99.99</p>
+              <p className="text-lg font-medium">For 6 Months</p>
+              <p className="text-[28px] font-bold text-[#1D7C42]">$550</p>
             </div>
             <div className="flex justify-center items-center">
               <ul className="mt-2 mb-6 space-y-1 ">
@@ -76,8 +76,8 @@ const Packages = () => {
         <div className="overflow-auto shadow-customShadow rounded-xl p-6 md:mb-0 mb-1 min-h-[210px] max-h-[300px] bg-secondary ">
           <div>
             <div className="flex flex-col justify-center items-center px-2">
-              <p className="text-lg font-medium">Premium Plan</p>
-              <p className="text-[28px] font-bold text-[#1D7C42]">$109.99</p>
+              <p className="text-lg font-medium">For a Year</p>
+              <p className="text-[28px] font-bold text-[#1D7C42]">$800</p>
             </div>
             <div className="flex justify-center items-center">
               <ul className="mt-2 mb-6 space-y-1 ">
