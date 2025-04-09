@@ -21,8 +21,16 @@ const UserProfile = ({
   pickupType,
   fileNames,
   setFileNames,
+  setDispensaryType,
+  dispensaryType,
 }) => {
   const deliveryRadiusValue = watch("deliveryRadius");
+
+  // State for dispensary type
+
+  const handleDispensaryTypeChange = (e) => {
+    setDispensaryType(e.target.value); // Update state with selected value
+  };
 
   const [imgError, setImgError] = useState({
     profile: "",
@@ -305,6 +313,27 @@ const UserProfile = ({
         {error && <p className="text-red-500 text-xs">{error}</p>}
       </div>
 
+      {/* Dispensary Type Selection */}
+      <div className="w-full h-auto flex flex-col justify-start items-start mt-3">
+        <label className="text-[13px] font-[600] mb-2">
+          What type of dispensary do you have?
+        </label>
+        <select
+          value={dispensaryType} // Bind value to the state
+          onChange={handleDispensaryTypeChange} // Handle change
+          className="w-full text-sm text-[#1D7C42] font-medium px-4 py-3 rounded-xl outline-none bg-light shadow-sm"
+        >
+          <option value="">Select Type</option> {/* Default option */}
+          <option value="MED">Medical</option> {/* Medical option */}
+          <option value="REC">Recreational</option> {/* Recreational option */}
+        </select>
+        {dispensaryType && (
+          <p className="text-[13px] mt-1 text-[#1D7C42]">
+            You selected:{" "}
+            {dispensaryType === "MED" ? "Medical" : "Recreational"}
+          </p>
+        )}
+      </div>
       <div className="mt-8">
         <CustomButton text={"Next"} type="submit" />
       </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UserInformation from "../components/UserInformation";
 import UserProfile from "../components/UserProfile";
 import UserVerification from "../components/UserVerification";
-import UserSummary from "./../components/UserSummary";
+import UserSummary from "../components/UserSummary";
 import { useForm } from "react-hook-form";
 import axios from "../axios";
 import { ErrorToast, SuccessToast } from "../components/Toaster";
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserInfo = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
   const [loading, setLoading] = useState(false);
   const [closingTime, setClosingTime] = useState("");
   const [startingTime, setStartingTime] = useState("");
@@ -21,6 +21,7 @@ const UserInfo = () => {
   const [city, setCity] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [pickupType, setPickupType] = useState("");
+  const [dispensaryType, setDispensaryType] = useState("");
 
   const {
     register,
@@ -200,6 +201,8 @@ const UserInfo = () => {
               setValue={setValue}
               pickupType={pickupType}
               setPickupType={setPickupType}
+              setDispensaryType={setDispensaryType}
+              dispensaryType={dispensaryType}
               fileNames={profileImg}
               setFileNames={setProfileImg}
             />
