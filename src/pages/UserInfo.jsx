@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserInfo = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [closingTime, setClosingTime] = useState("");
   const [startingTime, setStartingTime] = useState("");
