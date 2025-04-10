@@ -230,6 +230,7 @@ const UserInfo = () => {
               selectedState={selectedState}
               city={city}
               pickupType={pickupType}
+              dispensaryType={dispensaryType}
             />
           )}
         </div>
