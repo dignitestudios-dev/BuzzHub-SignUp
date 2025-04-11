@@ -69,6 +69,7 @@ const UserInfo = () => {
       data.append("closingHourTime", closingTime);
       data.append("openingHourTime", startingTime);
       data.append("fulfillmentMethod", pickupType);
+      data.append("dispensaryType", dispensaryType);
       // data.append("pickupType", JSON.stringify(formData.pickupType)); // assuming it's an array
       data.append("state", selectedState);
       data.append("streetAddress", formData.streetAddress);
