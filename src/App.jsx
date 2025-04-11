@@ -11,6 +11,7 @@ import AddCard from "./pages/AddCard";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import SubscriptionSuccess from "./pages/SubscriptionSuccess";
+import CancelSubscription from "./pages/CancelSubscription";
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
       <Route path="/packages" element={<Packages />} />
       <Route path="/add-card" element={<AddCard />} />
       <Route path="/verification" element={<Verification />} />
+      <Route path="/cancel-subscription" element={<CancelSubscription />} />
+
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
