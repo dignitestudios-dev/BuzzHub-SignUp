@@ -1,14 +1,46 @@
+import axios from "axios";
 import React from "react";
 import { MdCheckCircle, MdCancel } from "react-icons/md"; // icons for status
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { SuccessToast } from "../components/Toaster";
 
 const CancelSubscription = () => {
-  // Hardcoded dummy subscription data
-  const subscriptionPlan = {
-    SubscriptionPlan: "Premium",
-    totalAmount: "49.99",
-    status: "active",
-    currentPeriodStart: "2025-04-01T00:00:00Z",
-    currentPeriodEnd: "2025-05-01T00:00:00Z",
+  const navigate = useNavigate();
+
+  const [searchParams] = new useSearchParams();
+
+  let queryParams = {};
+
+  for (const [key, value] of searchParams.entries()) {
+    queryParams[key] = value;
+  }
+
+  console.log("queryParams -- ", queryParams);
+  let subscription = null;
+  const cancelSubscription = async () => {
+    try {
+      const { subscriptionPlan, token } = queryParams;
+      subscription = JSON.parse(subscriptionPlan);
+      console.log(subscription);
+      sessionStorage.setItem("token", token);
+      const response = await axios.post(
+        "https://api.buzzhubapp.com/dispensary/cancel-subscription",
+        {
+          subscriptionId: subscription.subscriptionId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Set token in the header
+          },
+        }
+      );
+      if (response.status === 200) {
+        SuccessToast("Your subscription has been cancelled.");
+        navigate("/cancelled-screen");
+      }
+    } catch (err) {
+      console.error("Error canceling subscription:", err);
+    }
   };
 
   return (
@@ -40,13 +72,15 @@ const CancelSubscription = () => {
 
           {/* Right Side: Status */}
           <div className="flex items-center gap-2">
-            {subscriptionPlan?.status === "active" ? (
+            {subscription?.subscriptionPlan?.status === "active" ? (
               <MdCheckCircle size={20} color="green" />
             ) : (
               <MdCancel size={20} color="red" />
             )}
             <span className="text-md font-semibold text-gray-800">
-              {subscriptionPlan?.status === "active" ? "Active" : "Inactive"}
+              {subscription?.subscriptionPlan?.status === "active"
+                ? "Active"
+                : "Inactive"}
             </span>
           </div>
         </div>
@@ -55,29 +89,32 @@ const CancelSubscription = () => {
         <div className="space-y-4">
           <div className="space-y-2 border-b pb-4">
             <p className="text-md text-gray-600">
-              <strong>Plan:</strong> {subscriptionPlan.SubscriptionPlan} Plan
+              <strong>Plan:</strong>{" "}
+              {subscription?.SubscriptionPlan.SubscriptionPlan} Plan
             </p>
             <div className="flex items-center gap-2">
               <p className="text-gray-600">Amount</p>
               <span className="text-xl font-bold text-green-600">
-                ${subscriptionPlan.totalAmount}
+                ${subscription?.subscriptionPlan.totalAmount}
               </span>
             </div>
           </div>
 
           <div className="flex items-center text-black gap-2">
             <p className="text-gray-600">Status :</p>
-            {subscriptionPlan.status}
+            {subscription?.subscriptionPlan.status}
           </div>
 
           <div className="space-y-2 text-sm text-gray-500">
             <p>
               <strong>Period:</strong>{" "}
               {new Date(
-                subscriptionPlan.currentPeriodStart
+                subscription?.subscriptionPlan.currentPeriodStart
               ).toLocaleDateString()}{" "}
               -{" "}
-              {new Date(subscriptionPlan.currentPeriodEnd).toLocaleDateString()}
+              {new Date(
+                subscription?.subscriptionPlan.currentPeriodEnd
+              ).toLocaleDateString()}
             </p>
           </div>
         </div>
@@ -85,7 +122,7 @@ const CancelSubscription = () => {
         {/* Cancel Subscription Button (Now Static) */}
         <div className="flex justify-left mt-6">
           <button
-            disabled
+            onClick={cancelSubscription}
             className="px-6 py-3 bg-gray-400 text-white rounded-lg font-semibold cursor-not-allowed"
           >
             Cancel Subscription

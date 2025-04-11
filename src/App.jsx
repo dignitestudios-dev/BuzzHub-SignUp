@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import SubscriptionSuccess from "./pages/SubscriptionSuccess";
 import CancelSubscription from "./pages/CancelSubscription";
+import CancelScreen from "./pages/CancelScreen";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route path="/add-card" element={<AddCard />} />
       <Route path="/verification" element={<Verification />} />
       <Route path="/cancel-subscription" element={<CancelSubscription />} />
+      <Route path="/cancelled-screen" element={<CancelScreen />} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
