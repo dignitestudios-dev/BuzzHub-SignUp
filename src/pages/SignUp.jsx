@@ -314,8 +314,25 @@ const SignUp = () => {
           <div className="flex items-center mt-2">
             <p className="text-secondary sm:ml-6 text-[13px] text-center">
               By registering, you accept our{" "}
-              <span className="text-primary">Terms & services</span> &{" "}
-              <span className="text-primary">Privacy policy</span>
+              <span className="text-primary mr-1">
+                <a
+                  href="https://buzzhub-landing.vercel.app/termsandconditions2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Terms of Services
+                </a>
+              </span>
+              &{" "}
+              <span className="ml-1 text-primary">
+                <a
+                  href="https://buzzhub-landing.vercel.app/privacypolicy2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Privacy Policy
+                </a>
+              </span>
             </p>
           </div>
         </div>

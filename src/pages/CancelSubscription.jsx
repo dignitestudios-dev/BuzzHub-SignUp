@@ -61,6 +61,10 @@ const CancelSubscription = () => {
     }
   };
 
+  const isButtonDisabled =
+    subscriptionData?.status === "cancelled" ||
+    subscriptionData?.status === "inactive";
+
   return (
     <div className="flex flex-col w-full justify-center min-h-screen h-full bg-gray-100 px-4 py-4">
       {/* Subscription Plan Card */}
@@ -133,8 +137,9 @@ const CancelSubscription = () => {
         {/* Cancel Subscription Button (Now Static) */}
         <div className="flex justify-left mt-6">
           <button
+            disabled={isButtonDisabled}
             onClick={cancelSubscription}
-            className="px-6 py-3 bg-gray-400 text-white rounded-lg font-semibold cursor-not-allowed"
+            className="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold cursor-not-allowed"
           >
             Cancel Subscription
           </button>
