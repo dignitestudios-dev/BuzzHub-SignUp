@@ -4,24 +4,41 @@ import { MdCheckCircle, MdCancel } from "react-icons/md"; // icons for status
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { SuccessToast } from "../components/Toaster";
 
+// Define plan descriptions for mapping
+const planDescriptions = {
+  Basic: "3-Month Plan – Mobile App Only",
+  standard: "3-Month Plan – Mobile App + Web Platform",
+  bronze: "6-Month Plan – Mobile App Only",
+  bronzePlus: "6-Month Plan – Mobile App + Web Platform",
+  premium: "12-Month Plan – Mobile App Only",
+  premiumPlus: "12-Month Plan – Mobile App + Web Platform",
+};
+
 const CancelSubscription = () => {
   const navigate = useNavigate();
 
   const [searchParams] = new useSearchParams();
-
   let queryParams = {};
 
+  // Retrieve query parameters
   for (const [key, value] of searchParams.entries()) {
     queryParams[key] = value;
   }
 
-  console.log("queryParams -- ", queryParams);
-  let subscription = null;
+  // Parse subscription data from query params
+  let subscriptionData = JSON.parse(queryParams?.subscriptionPlan);
+  console.log("subscriptionData -- ", subscriptionData);
+
+  // Get description for the subscription plan
+  const planDescription =
+    planDescriptions[subscriptionData?.SubscriptionPlan] ||
+    "No description available";
+
   const cancelSubscription = async () => {
     try {
       const { subscriptionPlan, token } = queryParams;
-      subscription = JSON.parse(subscriptionPlan);
-      console.log(subscription);
+      const subscription = JSON.parse(subscriptionPlan);
+
       sessionStorage.setItem("token", token);
       const response = await axios.post(
         "https://api.buzzhubapp.com/dispensary/cancel-subscription",
@@ -30,10 +47,11 @@ const CancelSubscription = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Set token in the header
+            Authorization: `Bearer ${token}`,
           },
         }
       );
+
       if (response.status === 200) {
         SuccessToast("Your subscription has been cancelled.");
         navigate("/cancelled-screen");
@@ -56,31 +74,22 @@ const CancelSubscription = () => {
       </div>
       <div className="w-full bg-white rounded-2xl shadow-lg p-8 space-y-6 border border-gray-200">
         {/* Header */}
-
         <div className="flex items-center justify-between mb-6 border-b pb-4">
           <div className="flex items-center space-x-4">
-            {/* <img
-              src={Logo}
-              alt="pill"
-              className="w-[60px] h-[60px] bg-green-600 rounded-full"
-            /> */}
             <div className="flex flex-col">
-              {/* <h1 className="text-2xl font-bold text-gray-800">Subscription</h1> */}
               <p className="text-sm text-gray-600">Subscription Status</p>
             </div>
           </div>
 
           {/* Right Side: Status */}
           <div className="flex items-center gap-2">
-            {subscription?.subscriptionPlan?.status === "active" ? (
+            {subscriptionData?.status === "active" ? (
               <MdCheckCircle size={20} color="green" />
             ) : (
               <MdCancel size={20} color="red" />
             )}
             <span className="text-md font-semibold text-gray-800">
-              {subscription?.subscriptionPlan?.status === "active"
-                ? "Active"
-                : "Inactive"}
+              {subscriptionData?.status === "active" ? "Active" : "Inactive"}
             </span>
           </div>
         </div>
@@ -89,31 +98,33 @@ const CancelSubscription = () => {
         <div className="space-y-4">
           <div className="space-y-2 border-b pb-4">
             <p className="text-md text-gray-600">
-              <strong>Plan:</strong>{" "}
-              {subscription?.SubscriptionPlan.SubscriptionPlan} Plan
+              <strong>Plan:</strong> {subscriptionData?.SubscriptionPlan} Plan
+            </p>
+            <p className="text-sm text-gray-500">
+              <strong>Description:</strong> {planDescription}
             </p>
             <div className="flex items-center gap-2">
               <p className="text-gray-600">Amount</p>
               <span className="text-xl font-bold text-green-600">
-                ${subscription?.subscriptionPlan.totalAmount}
+                ${subscriptionData?.totalAmount}
               </span>
             </div>
           </div>
 
           <div className="flex items-center text-black gap-2">
             <p className="text-gray-600">Status :</p>
-            {subscription?.subscriptionPlan.status}
+            {subscriptionData?.status}
           </div>
 
           <div className="space-y-2 text-sm text-gray-500">
             <p>
               <strong>Period:</strong>{" "}
               {new Date(
-                subscription?.subscriptionPlan.currentPeriodStart
+                subscriptionData?.currentPeriodStart
               ).toLocaleDateString()}{" "}
               -{" "}
               {new Date(
-                subscription?.subscriptionPlan.currentPeriodEnd
+                subscriptionData?.currentPeriodEnd
               ).toLocaleDateString()}
             </p>
           </div>
