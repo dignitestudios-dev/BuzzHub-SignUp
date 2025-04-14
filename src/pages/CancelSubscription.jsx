@@ -6,7 +6,7 @@ import { SuccessToast } from "../components/Toaster";
 
 // Define plan descriptions for mapping
 const planDescriptions = {
-  Basic: "3-Month Plan – Mobile App Only",
+  basic: "3-Month Plan – Mobile App Only",
   standard: "3-Month Plan – Mobile App + Web Platform",
   bronze: "6-Month Plan – Mobile App Only",
   bronzePlus: "6-Month Plan – Mobile App + Web Platform",
@@ -102,7 +102,9 @@ const CancelSubscription = () => {
         <div className="space-y-4">
           <div className="space-y-2 border-b pb-4">
             <p className="text-md text-gray-600">
-              <strong>Plan:</strong> {subscriptionData?.SubscriptionPlan} Plan
+              <strong>Plan:</strong>{" "}
+              {subscriptionData?.SubscriptionPlan.toLowerCase()} Plan{" "}
+              {/* Displaying plan name in lowercase */}
             </p>
             <p className="text-sm text-gray-500">
               <strong>Description:</strong> {planDescription}
