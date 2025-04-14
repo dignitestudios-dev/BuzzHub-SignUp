@@ -101,13 +101,12 @@ const CancelSubscription = () => {
         {/* Subscription Info */}
         <div className="space-y-4">
           <div className="space-y-2 border-b pb-4">
-            <p className="text-md text-gray-600">
+            {/* <p className="text-md text-gray-600">
               <strong>Plan:</strong>{" "}
               {subscriptionData?.SubscriptionPlan.toLowerCase()} Plan{" "}
-              {/* Displaying plan name in lowercase */}
-            </p>
+            </p> */}
             <p className="text-sm text-gray-500">
-              <strong>Description:</strong> {planDescription}
+              <strong>Plan : </strong> {planDescription}
             </p>
             <div className="flex items-center gap-2">
               <p className="text-gray-600">Amount</p>
