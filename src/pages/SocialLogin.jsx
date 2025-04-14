@@ -143,7 +143,7 @@ const SocialLogin = () => {
           <FiLoader className="text-[#1A293D] text-[32px] animate-spin me-2" />
         )}
       </div>
-      {/* <div
+      <div
         className="flex justify-between items-center bg-dark text-white font-medium text-[14px]
        text-center md:w-[400px] md:px-4 py-2.5 mt-2 md:mx-2 rounded-2xl"
         onClick={() => handleAppleLogin()}
@@ -152,7 +152,7 @@ const SocialLogin = () => {
           <FaApple className="text-[26px] ml-4" />
         </div>
         <div className="w-full">Continue With Apple</div>
-      </div> */}
+      </div>
     </div>
   );
 };
