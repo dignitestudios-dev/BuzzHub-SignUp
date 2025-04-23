@@ -121,7 +121,7 @@ const CancelSubscription = () => {
             {subscriptionData?.status}
           </div>
 
-          <div className="space-y-2 text-sm text-gray-500">
+          <div className="space-y-2 text-sm  text-gray-500">
             <p>
               <strong>Period:</strong>{" "}
               {new Date(
