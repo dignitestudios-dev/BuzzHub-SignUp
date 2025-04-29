@@ -108,8 +108,8 @@ const SignUp = () => {
           sessionStorage.setItem("phoneNumber", formData?.phoneNumber);
           setLoading(false);
           SuccessToast("SignUp Successfully");
-          // navigate("/verify-otp");
-          navigate("/verification");
+          navigate("/verify-otp");
+          // navigate("/verification");
         } else {
           ErrorToast(response?.message);
         }
