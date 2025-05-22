@@ -53,6 +53,7 @@ const handleStateChange = (e) => {
   if (!legalStates.includes(selected)) {
     setStateError("This state is not legal.");
     return;
+    
   }
 
   setStateError(null);
@@ -188,7 +189,8 @@ const handleStateChange = (e) => {
       </div>
 
       <div className="pt-2">
-        <CustomButton text={"Next"} type="submit" />
+        <CustomButton text={"Next"} type="submit" disabled={!!stateError || !legalStates.includes(selectedState)}
+/>
       </div>
     </form>
   );
