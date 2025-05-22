@@ -3,11 +3,13 @@ import InputField from "./InputField";
 import CustomButton from "./CustomButton";
 import SelectField from "./SelectField";
 import stateCityData from "../dataCountry/CountryData";
+
 // const stateCityData = {
 //   California: ["Los Angeles", "San Francisco", "San Diego"],
 //   Texas: ["Houston", "Dallas", "Austin"],
 //   "New York": ["New York City", "Buffalo", "Rochester"],
 // };
+
 
 const UserInformation = ({
   handleNext,
@@ -23,8 +25,42 @@ const UserInformation = ({
   setSelectedState,
   coordinates,
   setCoordinates,
+  getRemoteConfigData
 }) => {
   const [coordinatesMessage, setCoordinatesMessage] = useState(null);
+  
+  const [stateError, setStateError] = useState(null);
+const [legalStates, setLegalStates] = useState([]);
+console.log("legalStates--> ", legalStates);
+
+
+useEffect(() => {
+  const nameValue = "USA";
+  if (nameValue) setValue("country", nameValue);
+
+  const fetchLegalStates = async () => {
+    const data = await getRemoteConfigData();
+    if (Array.isArray(data)) setLegalStates(data);
+  };
+
+  fetchLegalStates();
+}, [setValue]);
+
+
+const handleStateChange = (e) => {
+  const selected = e.target.value;
+
+  if (!legalStates.includes(selected)) {
+    setStateError("This state is not legal.");
+    return;
+  }
+
+  setStateError(null);
+  setCities(stateCityData[selected] || []);
+  setSelectedState(selected);
+};
+
+
   const apiFields = [
     {
       key: "dispensaryName",
@@ -69,13 +105,13 @@ const UserInformation = ({
   };
 
   // Handle state change
-  const handleStateChange = (e) => {
-    const selectedState = e.target.value;
+  // const handleStateChange = (e) => {
+  //   const selectedState = e.target.value;
 
-    setCities(stateCityData[selectedState] || []);
-    setSelectedState(selectedState);
-    // setValue("city", "");
-  };
+  //   setCities(stateCityData[selectedState] || []);
+  //   setSelectedState(selectedState);
+  //   // setValue("city", "");
+  // };
 
   useEffect(() => {
     const nameValue = "USA";
@@ -118,6 +154,8 @@ const UserInformation = ({
           error={errors.state?.message}
           disabled={false}
         />
+          {stateError && <p className="text-red-500 text-sm">{stateError}</p>}
+
       </div>
       <div className="w-full h-auto flex flex-col justify-start items-start my-4">
         <SelectField

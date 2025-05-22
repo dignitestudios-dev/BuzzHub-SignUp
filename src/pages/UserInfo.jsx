@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserInformation from "../components/UserInformation";
 import UserProfile from "../components/UserProfile";
 import UserVerification from "../components/UserVerification";
@@ -7,6 +7,9 @@ import { useForm } from "react-hook-form";
 import axios from "../axios";
 import { ErrorToast, SuccessToast } from "../components/Toaster";
 import { useNavigate } from "react-router-dom";
+import { fetchAndActivate, getString } from "firebase/remote-config";
+import { remoteConfig } from "../firebase/firebase";
+
 
 const UserInfo = () => {
   const navigate = useNavigate();
@@ -117,6 +120,21 @@ const UserInfo = () => {
     }
   };
 
+   async function getRemoteConfigData() {
+      try {
+        await fetchAndActivate(remoteConfig);
+        const jsonString = getString(remoteConfig, "legal_cannabis_states" );
+        const jsonData = JSON.parse(jsonString);
+        return jsonData;
+      } catch (error) {
+        console.error("Error fetching or parsing remote config:", error);
+        return null;
+      }
+    }
+
+    useEffect(()=>{
+      getRemoteConfigData()
+    },[])
   return (
     <div className="flex flex-col justify-center bg-[#1d7c42] items-center h-full w-full  ">
       <div className="flex pt-5 gap-10">
@@ -185,6 +203,7 @@ const UserInfo = () => {
               setCity={setCity}
               selectedState={selectedState}
               setSelectedState={setSelectedState}
+              getRemoteConfigData={getRemoteConfigData}
             />
           )}
           {step === 2 && (
