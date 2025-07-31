@@ -19,6 +19,7 @@ const InputField = ({
   setCoordinates,
   coordinatesMessage,
   setCoordinatesMessage,
+  getStateFromPlace,
 }) => {
   const [isPassVisible, setIsPassVisible] = useState(false);
 
@@ -34,10 +35,13 @@ const InputField = ({
   const [originCoords, setOriginCoords] = useState([30.0444, 31.2357]);
   const handleStartPlaceChanged = () => {
     const place = startLocationRef.current.getPlace();
+
     if (place.geometry) {
       const lat = place.geometry.location.lat();
       const lng = place.geometry.location.lng();
       setStartAddress(place?.formatted_address);
+              getStateFromPlace(place)
+
       setCoordinates({
         type: "Point",
         coordinates: { lat: lat, lng: lng },

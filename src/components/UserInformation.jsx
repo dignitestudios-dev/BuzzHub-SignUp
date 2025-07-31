@@ -25,7 +25,8 @@ const UserInformation = ({
   setSelectedState,
   coordinates,
   setCoordinates,
-  getRemoteConfigData
+  getRemoteConfigData,
+  
 }) => {
   const [coordinatesMessage, setCoordinatesMessage] = useState(null);
   
@@ -80,13 +81,13 @@ const handleStateChange = (e) => {
       type: "text",
       validation: { required: "Please enter the street address." },
     },
-    {
-      key: "apartmentOrSuite",
-      label: "Apartment or Suite",
-      placeholder: "Apartment or Suite",
-      type: "text",
-      validation: {},
-    },
+    // {
+    //   key: "apartmentOrSuite",
+    //   label: "Apartment or Suite",
+    //   placeholder: "Apartment or Suite",
+    //   type: "text",
+    //   validation: {},
+    // },
     {
       key: "country",
       label: "Country",
@@ -96,6 +97,30 @@ const handleStateChange = (e) => {
       disabled: true,
     },
   ];
+
+
+const getStateFromPlace = (place) => {
+    console.log("place61-->", place);
+
+  const component = place.address_components.find((comp) =>
+    comp.types.includes("administrative_area_level_1")
+  );
+
+  const componentCity = place.address_components.find((comp) =>
+    comp.types.includes("locality")
+  );
+  
+   if(!legalStates?.includes(component.long_name)){
+      setStateError("The Illegal State cant be selected and wont appear in the field");
+      return;
+    }
+      setStateError(null);
+  setCities(stateCityData[component.long_name] || []);
+  setSelectedState(component.long_name);
+  setCity(componentCity ? componentCity.long_name : "");
+  
+};
+
 
   const onSubmit = () => {
     if (Object.keys(coordinates).length === 0) {
@@ -140,6 +165,8 @@ const handleStateChange = (e) => {
               register={register(field.key, field.validation)}
               isDisabled={field?.disabled ? field?.disabled : ""}
               onInput={field.onInput && field.onInput}
+                            getStateFromPlace={getStateFromPlace}
+
             />
           </div>
         );
@@ -153,7 +180,7 @@ const handleStateChange = (e) => {
           name="state"
           options={Object.keys(stateCityData)}
           error={errors.state?.message}
-          disabled={false}
+          disabled={true}
         />
           {stateError && <p className="text-red-500 text-sm">{stateError}</p>}
 
@@ -166,7 +193,7 @@ const handleStateChange = (e) => {
           name="city"
           options={cities}
           error={errors.city?.message}
-          disabled={cities?.length === 0}
+          disabled={true}
         />
       </div>
       <div className="w-full h-auto flex flex-col justify-start items-start my-4">
